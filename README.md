@@ -4,7 +4,7 @@ Scout is an Android App which allows you to *stalk* your Friends
 ###Play Store
 It's currently available on **[ Google Play (Beta Testing)](https://play.google.com/apps/testing/de.mm.android.longitude)**
 
-###Used Libraries (Credit to)
+###Used Libraries (credits to)
 **[rxAndroid](https://github.com/ReactiveX/RxAndroid)**
 
 **[okhttp](http://square.github.io/okhttp/)**
