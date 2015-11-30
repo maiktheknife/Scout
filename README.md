@@ -21,7 +21,7 @@ It's currently available on **[ Google Play (Beta Testing)](https://play.google.
 
 **[AboutLibraries](https://github.com/mikepenz/AboutLibraries)**
 
-**[changeloglib](https://github.com/JakeWharton/butterknife)**
+**[changeloglib](https://github.com/gabrielemariotti/changeloglib)**
 
 **[Google Maps Util]( https://github.com/googlemaps/android-maps-utils)**
 
