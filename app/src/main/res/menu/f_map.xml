@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <group android:id="@+id/menu_group_map">
+        <item
+            android:id="@+id/menu_f_map_update"
+            android:icon="@mipmap/ic_menu_refresh"
+            android:orderInCategory="1"
+            android:title="@string/menu_update"
+            app:showAsAction="ifRoom" />
+        <item
+            android:id="@+id/menu_f_map_mapMode"
+            android:icon="@android:drawable/ic_menu_mapmode"
+            android:orderInCategory="10"
+            android:title="@string/menu_mapmode"
+            app:showAsAction="ifRoom|withText" />
+        <item
+            android:id="@+id/menu_f_map_weather"
+            android:icon="@android:drawable/ic_menu_view"
+            android:orderInCategory="20"
+            android:title="@string/menu_weather"
+            app:showAsAction="ifRoom|withText" />
+    </group>
+</menu>

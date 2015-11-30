@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--<item android:color="@android:color/holo_orange_dark" android:state_activated="true" />-->
+    <!--<item android:color="@color/accentColorDark" android:state_selected="true" />-->
+    <item android:color="@color/accentColor" android:state_checked= "true" />
+    <item android:color="@color/primary_text_default_material_dark" />
+</selector>

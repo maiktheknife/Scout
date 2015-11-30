@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/menu_settings">
+
+    <PreferenceCategory android:title="@string/prefs_cat_common">
+        <de.mm.android.longitude.common.ButtonPreference
+            android:key="@string/prefs_key_account_email"
+            android:title="@string/prefs_title_account_email" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/prefs_cat_location">
+        <Preference
+            android:key="@string/prefs_key_location_locating"
+            android:title="@string/prefs_title_location_locating">
+            <intent android:action="android.settings.LOCATION_SOURCE_SETTINGS" />
+        </Preference>
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="@string/prefs_key_location_tracking"
+            android:summary="@string/prefs_title_location_tracking_s"
+            android:title="@string/prefs_title_location_tracking" />
+
+        <ListPreference
+            android:defaultValue="120"
+            android:dependency="@string/prefs_key_location_tracking"
+            android:dialogTitle="@string/prefs_title_location_interval"
+            android:entries="@array/interval"
+            android:entryValues="@array/interval_values"
+            android:key="@string/prefs_key_location_interval"
+            android:shouldDisableView="true"
+            android:title="@string/prefs_title_location_interval" />
+
+        <Preference
+            android:enabled="false"
+            android:key="@string/prefs_key_location_instantupload"
+            android:summary="Verlauf hochladen (auch MobilDaten!)"
+            android:title="Upload Verlauf" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/prefs_cat_google_gcm">
+        <ListPreference
+            android:defaultValue="1"
+            android:dialogTitle="@string/prefs_title_gcm_attitude"
+            android:entries="@array/gcm_attitude"
+            android:entryValues="@array/gcm_attitude_values"
+            android:key="@string/prefs_key_gcm_attitude"
+            android:title="@string/prefs_title_gcm_attitude" />
+
+        <MultiSelectListPreference
+            android:defaultValue="@array/gcm_notification_attitude_values"
+            android:dialogTitle="@string/prefs_title_gcm_notification"
+            android:entries="@array/gcm_notification_attitude"
+            android:entryValues="@array/gcm_notification_attitude_values"
+            android:key="@string/prefs_key_gcm_notification"
+            android:title="@string/prefs_title_gcm_notification" />
+
+        <Preference
+            android:key="@string/prefs_key_gcm_renovate"
+            android:summary="@string/prefs_title_gcm_renovate_s"
+            android:title="@string/prefs_title_gcm_renovate" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/prefs_cat_about">
+        <Preference
+            android:key="@string/prefs_key_about_website"
+            android:summary="@string/website"
+            android:title="@string/prefs_title_about_website">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="@string/website" />
+        </Preference>
+        <Preference
+            android:key="@string/prefs_key_about_version"
+            android:enabled="false"
+            android:title="@string/prefs_title_about_version" />
+
+        <Preference
+            android:key="@string/prefs_key_about_license"
+            android:title="@string/prefs_title_about_license" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

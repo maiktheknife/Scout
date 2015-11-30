@@ -1,0 +1,87 @@
+apply plugin: 'com.android.application' //or apply plugin: 'java'
+apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'com.getkeepsafe.dexcount'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion '23.0.2'
+
+    defaultConfig {
+        applicationId "de.mm.android.longitude"
+        minSdkVersion 16
+        targetSdkVersion 22
+        versionCode 20
+        versionName "1.8.3"
+        // multiDexEnabled true // Enabling multidex support.
+        buildConfigField "String", "BACKEND_ENDPOINT" , getPropertyValue("BACKEND_ENDPOINT")
+        buildConfigField "String", "GOOGLE_LOGIN_SCOPE", getPropertyValue("GOOGLE_LOGIN_SCOPE")
+        resValue "string", "GOOGLE_MAPS_API_KEY", getPropertyValue("GOOGLE_MAPS_API_KEY")
+    }
+
+    buildTypes {
+        debug {
+            debuggable true
+            buildConfigField "boolean", "GCM_ENABLED", "true"
+            minifyEnabled false
+        }
+        release {
+            debuggable false
+            buildConfigField "boolean", "GCM_ENABLED", "false"
+            minifyEnabled true
+            // Library specific proguard files
+            proguardFile 'proguard-butterknife-7.pro'
+            proguardFile 'proguard-google-play-services.pro'
+            proguardFile 'proguard-json.pro'
+            proguardFile 'proguard-retrolambda.pro'
+            proguardFile 'proguard-rx-java.pro'
+            proguardFile 'proguard-square-okhttp.pro'
+            proguardFile 'proguard-square-picasso.pro'
+            proguardFile 'proguard-square-retrofit.pro'
+            proguardFile 'proguard-support-design.pro'
+            proguardFile 'proguard-support-v7-appcompat.pro'
+            proguardFile 'proguard-support-v7-cardview.pro'
+            // Default proguard files & project app specific rules,
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+def getPropertyValue(String key){
+    Properties properties = new Properties()
+    properties.load(new FileInputStream("gradle.properties"))
+    return "\"" + properties.getProperty(key) +"\""
+}
+
+dependencies {
+    compile project(':BaseGameUtils')
+    def app = rootProject.ext.appDependencies
+    compile app.appCompat
+    compile app.support
+    compile app.design
+    compile app.recycler
+    compile app.card
+    compile app.playIdentity
+    compile app.playBase
+    compile app.playGcm
+    compile app.playDrive
+    compile app.playLocation
+    compile app.playMaps
+    compile app.playGames
+    compile app.rxAndroid
+    compile app.okhttp
+    compile app.retrofit
+    compile app.picasso
+    compile app.circularimageview
+    compile app.fabsheet
+    compile app.appintro
+    compile app.butter
+    compile app.mapUtil
+    compile app.aboutlibraries
+    compile app.changeLog
+}

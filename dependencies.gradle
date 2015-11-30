@@ -1,0 +1,82 @@
+ext {
+    supportLibraryVersion = '23.1.0'
+    designVersion = '23.1.0'
+    playVersion = '7.8.0'
+    rxAndroidVersion = '1.0.1'
+    okhttpVersion = '2.5.0'
+    retrofitVersion = '1.9.0'
+    picassoVersion = '2.5.2'
+    circularImageViewVersion = '1.1'
+    appIntroVersion = '3.2.0'
+    butterVersion = '7.0.1'
+    fabsheetVersion = '1.0.5'
+    mapsutilVersion = '0.4'
+    aboutlibrariesVersion = '5.2.4'
+    changelogVersion = '2.0.0'
+    dexcountVersion = '0.2.1'
+
+    baseUtilDependencies = [
+            // Std
+            appCompat   : "com.android.support:appcompat-v7:$supportLibraryVersion",
+            support     : "com.android.support:support-v4:$supportLibraryVersion",
+            design      : "com.android.support:design:$designVersion",
+
+            // PlayService
+            playIdentity: "com.google.android.gms:play-services-identity:$playVersion",
+            playBase    : "com.google.android.gms:play-services-base:$playVersion",
+            playDrive   : "com.google.android.gms:play-services-drive:$playVersion",
+            playGames   : "com.google.android.gms:play-services-games:$playVersion",
+            playPlus    : "com.google.android.gms:play-services-plus:$playVersion"
+    ]
+
+    appDependencies = [
+            // Std
+            appCompat        : "com.android.support:appcompat-v7:$supportLibraryVersion",
+            support          : "com.android.support:support-v4:$supportLibraryVersion",
+            recycler         : "com.android.support:recyclerview-v7:$supportLibraryVersion",
+            card             : "com.android.support:cardview-v7:$supportLibraryVersion",
+            design           : "com.android.support:design:$designVersion",
+
+            // PlayService
+            playIdentity     : "com.google.android.gms:play-services-identity:$playVersion",
+            playBase         : "com.google.android.gms:play-services-base:$playVersion",
+            playGcm          : "com.google.android.gms:play-services-gcm:$playVersion",
+            playDrive        : "com.google.android.gms:play-services-drive:$playVersion",
+            playLocation     : "com.google.android.gms:play-services-location:$playVersion",
+            playMaps         : "com.google.android.gms:play-services-maps:$playVersion",
+            playGames        : "com.google.android.gms:play-services-games:$playVersion",
+
+            // RxJava bindings for Android
+            rxAndroid        : "io.reactivex:rxandroid:$rxAndroidVersion",
+
+            // An HTTP & SPDY client for Android and Java applications --> http://square.github.io/okhttp/
+            okhttp           : "com.squareup.okhttp:okhttp:$okhttpVersion",
+
+            // Type-safe REST client for Android and Java --> http://square.github.io/retrofit/
+            retrofit         : "com.squareup.retrofit:retrofit:$retrofitVersion",
+
+            // A powerful image downloading and caching library for Android --> http://square.github.io/picasso/
+            picasso          : "com.squareup.picasso:picasso:$picassoVersion",
+
+            // Rounded ImageView
+            circularimageview: "com.pkmmte.view:circularimageview:$circularImageViewVersion",
+
+            // Make a cool intro for your Android app --> https://github.com/PaoloRotolo/AppIntro
+            appintro         : "com.github.paolorotolo:appintro:$appIntroVersion",
+
+            // View "injection" library for Android --> https://github.com/JakeWharton/butterknife
+            butter           : "com.jakewharton:butterknife:$butterVersion",
+
+            // Library that implements the floating action button to sheet transition --> https://github.com/gowong/material-sheet-fab
+            fabsheet         : "com.gordonwong:material-sheet-fab:$fabsheetVersion",
+
+            //Handy extensions to the Google Maps Android API --> https://github.com/googlemaps/android-maps-utils
+            mapUtil          : "com.google.maps.android:android-maps-utils:$mapsutilVersion",
+
+            // AboutLibraries is a library to offer some information of libraries --> https://github.com/mikepenz/AboutLibraries
+            aboutlibraries   : "com.mikepenz:aboutlibraries:$aboutlibrariesVersion",
+
+            // ChangeLog Library provides an easy way to display a change log in your Android app --> https://github.com/gabrielemariotti/changeloglib
+            changeLog        : "com.github.gabrielemariotti.changeloglib:changelog:$changelogVersion",
+    ]
+}

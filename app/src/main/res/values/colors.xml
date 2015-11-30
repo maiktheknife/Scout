@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black_transparent">#B2000000</color>
+
+    <!--Dark Theme-->
+    <!--<color name="primaryColor">#BDBDBD</color>-->
+    <!--<color name="primaryColorDark">#9E9E9E</color>-->
+    <!--<color name="accentColor">#EEB868</color>-->
+    <!--<color name="accentColorDark">#D6A65E</color>-->
+
+    <!--Light Theme-->
+    <!--<color name="primaryColorLight">#BDBDBD</color>-->
+    <!--<color name="primaryColorDarkLight">#9E9E9E</color>-->
+    <!--<color name="accentColorLight">#EEB868</color>-->
+    <!--<color name="accentColorDarkLight">#D6A65E</color>-->
+
+    <!-- new -->
+    <color name="primaryColor">#212121</color>
+    <color name="primaryColorDark">#000000</color>
+    <color name="primaryColorTransparent">#50212121</color>
+    <!--<color name="primaryColorTransparent">#503F51B5</color>-->
+
+    <color name="accentColor">#EEB868</color>
+    <color name="accentColorDark">#D6A65E</color>
+    <color name="accentColorTransparent">#50EEB868</color>
+
+</resources>

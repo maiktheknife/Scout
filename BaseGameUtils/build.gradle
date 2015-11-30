@@ -1,0 +1,18 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion '23.0.2'
+}
+
+dependencies {
+    def baseUtilDependencies = rootProject.ext.baseUtilDependencies
+    compile baseUtilDependencies.appCompat
+    compile baseUtilDependencies.support
+    compile baseUtilDependencies.design
+    compile baseUtilDependencies.playIdentity
+    compile baseUtilDependencies.playBase
+    compile baseUtilDependencies.playDrive
+    compile baseUtilDependencies.playGames
+    compile baseUtilDependencies.playPlus
+}

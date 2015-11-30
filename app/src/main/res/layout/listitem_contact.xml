@@ -1,0 +1,90 @@
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cv"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:clickable="true"
+    android:foreground="?android:selectableItemBackground"
+    app:cardBackgroundColor="?android:windowBackground"
+    app:cardCornerRadius="2dp"
+    app:cardElevation="5dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/contactrow_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/cardContent"
+            android:layout_alignEnd="@+id/cardContent"
+            android:layout_alignRight="@+id/cardContent"
+            android:background="?android:selectableItemBackground"
+            android:contentDescription="@string/placeholder"
+            android:src="@mipmap/ic_menu_moreoverflow" />
+
+        <LinearLayout
+            android:id="@+id/cardContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="6dp">
+
+            <com.pkmmte.view.CircularImageView
+                android:id="@+id/contactrow_image"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:layout_gravity="start|center"
+                android:layout_marginEnd="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginStart="8dp"
+                android:src="@mipmap/profil_placeholder"
+                app:border="false" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/activity_vertical_margin"
+                android:layout_marginRight="@dimen/activity_vertical_margin"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/contactrow_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/accentColor"
+                    android:textStyle="bold"
+                    tools:text="@string/placeholder" />
+
+                <TextView
+                    android:id="@+id/contactrow_latestupdate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    tools:text="@string/placeholder" />
+
+                <TextView
+                    android:id="@+id/contactrow_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="marquee"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    tools:text="@string/placeholder" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

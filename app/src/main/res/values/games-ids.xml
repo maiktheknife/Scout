@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Google Play game services IDs. -->
+<resources>
+    <!--app öffnen-->
+    <string name="achievement_addicted">CgkIsv67x6AKEAIQCA</string>
+    <!--10,100,1337,Moon km-->
+    <string name="achievement_snail">CgkIsv67x6AKEAIQDQ</string>
+    <string name="achievement_adventurer">CgkIsv67x6AKEAIQBw</string>
+    <string name="achievement_1337">CgkIsv67x6AKEAIQCQ</string>
+    <string name="achievement_widely_traveled">CgkIsv67x6AKEAIQAw</string>
+    <!--ping-->
+    <string name="achievement_novice_penetrator">CgkIsv67x6AKEAIQBA</string>
+    <string name="achievement_master_penetrator">CgkIsv67x6AKEAIQBQ</string>
+    <!--share-->
+    <string name="achievement_who_is_afraid_of_the_nsa">CgkIsv67x6AKEAIQCw</string>
+    <!--friends-->
+    <string name="achievement_popular">CgkIsv67x6AKEAIQDA</string>
+    <!--1000km on one day-->
+    <string name="achievement_faster_than_light">CgkIsv67x6AKEAIQDg</string>
+    <string name="leaderboard_traveled_distance">CgkIsv67x6AKEAIQCg</string>
+</resources>
+

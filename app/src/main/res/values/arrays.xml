@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Background Service Interval display values -->
+    <string-array name="interval">
+        <item>15 min</item>
+        <item>30 min</item>
+        <item>1 h</item>
+        <item>2 h</item>
+        <item>3 h</item>
+        <item>6 h</item>
+        <item>12 h</item>
+        <item>24 h</item>
+    </string-array>
+
+    <!-- Background Service Interval values -->
+    <string-array name="interval_values">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>120</item>
+        <item>180</item>
+        <item>360</item>
+        <item>720</item>
+        <item>1440</item>
+    </string-array>
+
+    <!-- MapMode Dialog Items -->
+    <string-array name="mapmode">
+        <item>@string/mapmode_normal</item>
+        <item>@string/mapmode_satellite</item>
+        <item>@string/mapmode_terrain</item>
+        <item>@string/mapmode_hybrid</item>
+    </string-array>
+
+    <!-- GCM attitude display values -->
+    <string-array name="gcm_attitude">
+        <item>@string/prefs_title_gcm_attitude_ask</item>
+        <item>@string/prefs_title_gcm_attitude_always</item>
+        <item>@string/prefs_title_gcm_attitude_never</item>
+    </string-array>
+
+    <!-- GCM attitude values -->
+    <string-array name="gcm_attitude_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <!-- GCM Notification attitude display values -->
+    <string-array name="gcm_notification_attitude">
+        <item>@string/prefs_title_gcm_notification_sound</item>
+        <item>@string/prefs_title_gcm_notification_vibrate</item>
+        <item>@string/prefs_title_gcm_notification_light</item>
+    </string-array>
+
+    <!-- GCM Notification attitude values -->
+    <string-array name="gcm_notification_attitude_values">
+        <item>1</item>
+        <item>2</item>
+        <item>4</item>
+    </string-array>
+
+    <string-array name="empty_array" />
+
+    <string-array name="weather_overlay">
+        <item>none</item>
+        <item>clouds</item>
+        <item>temp</item>
+        <item>precipitation</item>
+        <item>snow</item>
+        <item>rain</item>
+        <item>wind</item>
+        <item>pressure</item>
+    </string-array>
+
+    <string-array name="weather_overlay_values">
+        <item>@string/weather_none</item>
+        <item>@string/weather_clouds</item>
+        <item>@string/weather_temp</item>
+        <item>@string/weather_precipitation</item>
+        <item>@string/weather_snow</item>
+        <item>@string/weather_wind</item>
+        <item>@string/weather_pressure</item>
+    </string-array>
+
+</resources>

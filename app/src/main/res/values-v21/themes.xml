@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="AppTheme" parent="AppTheme.Base">
+        <item name="android:colorPrimary">@color/primaryColor</item>
+        <item name="android:colorPrimaryDark">@color/primaryColorDark</item>
+        <item name="android:colorAccent">@color/accentColor</item>
+        <item name="android:textColorSecondary">@color/accentColorDark</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <!--enable window content transitions -->
+        <item name="android:windowContentTransitions">true</item>
+        <!--specify enter and exit transitions -->
+        <item name="android:windowEnterTransition">@android:transition/slide_left</item>
+        <item name="android:windowExitTransition">@android:transition/slide_right</item>
+        <item name="android:alertDialogTheme">@style/Dialog.ColoredDialog</item>
+    </style>
+
+    <style name="AppTheme.Settings" parent="AppTheme.Base" >
+        <item name="android:colorPrimary">@color/primaryColor</item>
+        <item name="android:colorPrimaryDark">@color/primaryColorDark</item>
+        <item name="android:colorAccent">@color/accentColor</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowEnterTransition">@android:transition/slide_left</item>
+        <item name="android:windowExitTransition">@android:transition/slide_right</item>
+        <item name="android:alertDialogTheme">@style/Dialog.ColoredDialog</item>
+        <!--<item name="preferenceTheme">@style/PreferenceThemeOverlay</item>-->
+    </style>
+
+</resources>

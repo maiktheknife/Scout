@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <group android:id="@+id/menu_group_contact_overflow">
+        <item
+            android:id="@+id/menu_f_contact_overflow_poke"
+            android:icon="@android:drawable/ic_menu_view"
+            android:title="@string/menu_pokeFriend"
+            app:showAsAction="ifRoom" />
+        <item
+            android:id="@+id/menu_f_contact_overflow_delete"
+            android:icon="@android:drawable/ic_menu_delete"
+            android:title="@string/menu_deleteFriend"
+            app:showAsAction="ifRoom" />
+    </group>
+</menu>

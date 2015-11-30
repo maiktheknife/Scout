@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Scout</string>
+    <string name="app_id">352337198898</string>
+
+    <string name="welcome">Welcome to Scout</string>
+    <string name="placeholder">Some Text</string>
+    <string name="hint_name">Input your Name</string>
+    <string name="hint_email">Input an email</string>
+    <string name="please_wait">please wait &#8230;</string>
+    <string name="welcome_goahead">Choose your Account and go ahead!</string>
+    <string name="goahead">go ahead</string>
+    <string name="sorry">Sorry</string>
+    <string name="friends">Freunde</string>
+    <string name="showMaxDate">show Max Date</string>
+    <string name="calendar">Calendar</string>
+    <string name="poked">Poked</string>
+    <string name="get_started">Get Started</string>
+    <string name="weather_dialog_offline_msg">May not working while offline :(</string>
+
+    <string name="notification_message">You received a \'poke\' from GCM</string>
+    <string name="notification_update">Update</string>
+    <string name="notification_ignore">Ignore</string>
+
+    <string name="intro1">Welcome to\nScout</string>
+    <string name="intro2">Add your Friends and stack them.\nThey are displayed on a Map.\nClick the MapMarker to trigger a poke.</string>
+    <string name="intro3">Hangover? Check your latest Locations in the Progress View</string>
+
+    <string name="website">https://kivitro.net/menzel/scout</string>
+
+    <string name="error_notsupported">This device is not supported</string>
+    <string name="error_nodata">No Data Found :(</string>
+    <string name="error_noNetworkConnectionFound">No Network Connection found</string>
+    <string name="error_server">Error with the server</string>
+    <string name="error_token">Authentication necessary</string>
+    <string name="error_import">Error beim Kontaktimport</string>
+    <string name="error_field_is_empty">Das Feld darf nicht leer sein</string>
+
+    <plurals name="overflow_contact">
+		<item quantity="one">1 Friend selected</item>
+		<item quantity="other">%d Friends selected</item>
+    </plurals>
+
+    <!--MapMode Dialog Entries-->
+    <string name="mapmode_normal">Normal</string>
+    <string name="mapmode_satellite">Satellite</string>
+    <string name="mapmode_terrain">Terrain</string>
+    <string name="mapmode_hybrid">Hybrid</string>
+
+    <string name="menu_confirm">confirm</string>
+    <string name="menu_refuse">refuse</string>
+    <string name="menu_contacts">Kontakte</string>
+    <string name="menu_update">Aktualisieren</string>
+    <string name="menu_heatmap">HeatMap</string>
+    <string name="menu_weather">Wetterkarte</string>
+    <string name="menu_inviteFriends">Invite Friends</string>
+    <string name="menu_pokeFriend">Poke</string>
+    <string name="menu_pokeFriends">Poke Friends</string>
+    <string name="menu_deleteFriend">Delete Friends</string>
+    <string name="menu_settings">Einstellungen</string>
+    <string name="menu_locationSettings">Standorteinstellungen</string>
+    <string name="menu_editFriends">Edit Friends</string>
+    <string name="menu_mapmode">MapMode</string>
+    <string name="menu_date">Datum</string>
+
+    <!--Weather Map Overlay Titles-->
+    <string name="weather_none">Ohne</string>
+    <string name="weather_clouds">Wolken</string>
+    <string name="weather_temp">Temperatur</string>
+    <string name="weather_precipitation">Niederschlag</string>
+    <string name="weather_snow">Schnee</string>
+    <string name="weather_wind">Wind</string>
+    <string name="weather_pressure">Druck</string>
+
+    <!-- Prefs Categories -->
+    <string name="prefs_cat_common">Common</string>
+    <string name="prefs_cat_location">Standorteinstellungen</string>
+    <string name="prefs_cat_about">About</string>
+    <string name="prefs_cat_google">Google Services</string>
+    <string name="prefs_cat_google_gcm">Cloud Messaging</string>
+    <string name="prefs_cat_google_games">Games</string>
+
+    <!-- Prefs Keys -->
+    <string name="prefs_key_common_usage">scout_usage</string>
+    <string name="prefs_key_common_version">version</string>
+    <string name="prefs_key_account_id">account_id</string>
+    <string name="prefs_key_account_email">account_email</string>
+    <string name="prefs_key_account_name">account_name</string>
+    <string name="prefs_key_account_token">account_token</string>
+    <string name="prefs_key_location_latest_lat">locating_lat</string>
+    <string name="prefs_key_location_latest_lon">locating_lon</string>
+    <string name="prefs_key_location_locating">locating</string>
+    <string name="prefs_key_location_tracking">tracking</string>
+    <string name="prefs_key_location_interval">interval</string>
+    <string name="prefs_key_location_wifidetection">wifidetection</string>
+    <string name="prefs_key_location_instantupload">instantupload</string>
+    <string name="prefs_key_gcm_id">gcm_id</string>
+    <string name="prefs_key_gcm_attitude">gcm_attitude</string>
+    <string name="prefs_key_gcm_renovate">gcm_renovate</string>
+    <string name="prefs_key_gcm_notification">gcm_notification</string>
+    <string name="prefs_key_games_view_achievements">games_achievement</string>
+    <string name="prefs_key_about_website">about</string>
+    <string name="prefs_key_about_version">version</string>
+    <string name="prefs_key_about_license">license</string>
+    <string name="prefs_key_map_mode">mapMode</string>
+    <string name="prefs_key_map_zoom">mapZoom</string>
+    <string name="prefs_key_upload_timestamp">latest_timestamp</string>
+    <string name="prefs_key_app_has_images">has_images</string>
+    <string name="prefs_key_traveleddistance">traveleddistance</string>
+
+    <!-- Prefs Titles -->
+    <string name="prefs_title_account_email">Account</string>
+    <string name="prefs_title_location_locating">Ortung</string>
+    <string name="prefs_title_location_tracking">Hintergrundaktualisierung</string>
+    <string name="prefs_title_location_tracking_s">Ohne Starten der App den Standort aktualisieren</string>
+    <string name="prefs_title_location_interval">Aktualisierungsinterval</string>
+    <string name="prefs_title_location_wifidetection"> W-Lan Detection</string>
+    <string name="prefs_title_location_wifidetection_s">W-LAN Verbindungen erkennen und den Standort aktualisieren</string>
+    <string name="prefs_title_gcm_attitude">Ping Verhalten</string>
+    <string name="prefs_title_gcm_attitude_ask">Nachfragen</string>
+    <string name="prefs_title_gcm_attitude_always">Akzeptieren</string>
+    <string name="prefs_title_gcm_attitude_never">Ignorieren</string>
+    <string name="prefs_title_gcm_renovate">GCM ID erneuern</string>
+    <string name="prefs_title_gcm_renovate_s">Beim Funktionsstörungen mit einkommenden Pings kann die ID Erneuerung helfen.</string>
+    <string name="prefs_title_gcm_notification">Notification Settings</string>
+    <string name="prefs_title_gcm_notification_sound">Sound</string>
+    <string name="prefs_title_gcm_notification_vibrate">Vibration</string>
+    <string name="prefs_title_gcm_notification_light">LED</string>
+    <string name="prefs_title_games_view_achievements">View Achievements</string>
+    <string name="prefs_title_about_website">Visit Website</string>
+    <string name="prefs_title_about_version">Version</string>
+    <string name="prefs_title_about_license">Licenses</string>
+
+    <!--Drawer Titles-->
+    <string name="title_login">Login</string>
+    <string name="title_map">Karte</string>
+    <string name="title_progress">Verlauf</string>
+    <string name="title_contacts">Freunde</string>
+    <string name="title_achievements">Achievements</string>
+    <string name="title_leaderboard">Leaderboard</string>
+    <string name="title_settings">Einstellungen</string>
+    <string name="title_website">Website</string>
+    <string name="title_changelog">ChangeLog</string>
+
+    <string name="title_game">Game</string>
+    <string name="title_more">More</string>
+
+    <!--ChangeLog-->
+    <string name="changelog_full_title">Change Log</string>
+    <string name="changelog_title">What\'s New</string>
+    <string name="changelog_ok_button">OK</string>
+    <string name="changelog_show_full">more &#8230;</string>
+
+    <!--FloatingInviteMenu-->
+    <string name="fab_title_sheet">hinzufügen</string>
+    <string name="fab_title_email">via E-Mail</string>
+    <string name="fab_title_googleplus">via Google+</string>
+    <string name="fab_title_addressbook">via Adressbuch</string>
+    <string name="fab_title_share">Teilen</string>
+
+    <string name="f_intro_name_hint">Name</string>
+
+    <string name="aboutLibraries_description_showIcon">true</string>
+    <string name="aboutLibraries_description_showVersion">true</string>
+    <string name="aboutLibraries_description_text">Scout - Freunde stalken seit 2015</string>
+    <string name="transitionFab">transitionFab</string>
+</resources>
