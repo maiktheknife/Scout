@@ -26,3 +26,7 @@ It's currently available on **[ Google Play (Beta Testing)](https://play.google.
 **[Google Maps Util]( https://github.com/googlemaps/android-maps-utils)**
 
 **[material-sheet-fab](https://github.com/gowong/material-sheet-fab)**
+
+**[Gradle Retrolambda Plugin](https://github.com/evant/gradle-retrolambda)**
+
+**[Dexcount Gradle Plugin](https://github.com/KeepSafe/dexcount-gradle-plugin)**
