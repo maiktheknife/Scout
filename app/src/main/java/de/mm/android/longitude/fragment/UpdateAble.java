@@ -10,5 +10,6 @@ import de.mm.android.longitude.model.ContactData;
  * Created by Max on 23.09.2015.
  */
 public interface UpdateAble {
-    void update(@Nullable final List<ContactData> contacts);
+    void onConnectivityUpdate(final boolean isConnected);
+    void onDataReceived(@Nullable final List<ContactData> contacts);
 }

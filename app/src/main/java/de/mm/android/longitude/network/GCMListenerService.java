@@ -31,7 +31,7 @@ public class GCMListenerService extends GcmListenerService {
     public static final String GCM_VALUE = "de.mm.android.longitude.network.GCM_VALUE";
     private static final String TAG = GCMListenerService.class.getSimpleName();
     private static final String GCM_POKE = "poke";
-    private static final String GCM_UPDATE = "update";
+    private static final String GCM_UPDATE = "onDataReceived";
 
     @Override
     public void onMessageReceived(String from, Bundle data) {

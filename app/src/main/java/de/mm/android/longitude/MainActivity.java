@@ -11,7 +11,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
@@ -25,7 +24,6 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.transition.Fade;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -63,7 +61,6 @@ import de.mm.android.longitude.model.SignInFailureReason;
 import de.mm.android.longitude.network.GCMListenerService;
 import de.mm.android.longitude.network.GCMRegUtil;
 import de.mm.android.longitude.network.RestService;
-import de.mm.android.longitude.transition.FabTransition;
 import de.mm.android.longitude.util.AccountUtil;
 import de.mm.android.longitude.util.GameUtil;
 import de.mm.android.longitude.util.PreferenceUtil;
@@ -87,7 +84,7 @@ public class MainActivity extends GameActivity implements GMapFragment.IMapFragm
         showMessage(error.getMessage());
         Fragment f = getSupportFragmentManager().findFragmentById(R.id.ac_container);
         if (f != null && f instanceof UpdateAble) {
-            ((UpdateAble) f).update(null);
+            ((UpdateAble) f).onDataReceived(null);
         }
     };
     // current state
@@ -109,7 +106,7 @@ public class MainActivity extends GameActivity implements GMapFragment.IMapFragm
 
                 case GCMListenerService.GCM_ACTION:
                     String gcm = intent.getStringExtra(GCMListenerService.GCM_VALUE);
-                    Log.d(TAG, "onReceive GCM Message via LocalBroadcast: " + gcm + " --> update");
+                    Log.d(TAG, "onReceive GCM Message via LocalBroadcast: " + gcm + " --> onDataReceived");
                     loadFriends();
                     break;
 
@@ -317,15 +314,15 @@ public class MainActivity extends GameActivity implements GMapFragment.IMapFragm
             navigationView.getMenu().getItem(2).setChecked(true);
 
             Fragment f = ContactListFragment.newInstance(curContactDataList, curLocation);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                f.setSharedElementEnterTransition(new FabTransition());
-                f.setEnterTransition(new Fade());
-                f.setSharedElementReturnTransition(new FabTransition());
-            }
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                f.setSharedElementEnterTransition(new FabTransition());
+//                f.setEnterTransition(new Fade());
+//                f.setSharedElementReturnTransition(new FabTransition());
+//            }
 
             getSupportFragmentManager()
                     .beginTransaction()
-                    .addSharedElement(findViewById(R.id.f_map_sheetfab), getString(R.string.transitionFab))
+//                    .addSharedElement(findViewById(R.id.f_map_sheetfab), getString(R.string.transitionFab))
                     .replace(R.id.ac_container, f)
                     .commit();
             break;
@@ -624,7 +621,7 @@ public class MainActivity extends GameActivity implements GMapFragment.IMapFragm
 
         Fragment f = getSupportFragmentManager().findFragmentById(R.id.ac_container);
         if (f != null && f instanceof UpdateAble) {
-            ((UpdateAble) f).update(curContactDataList);
+            ((UpdateAble) f).onDataReceived(curContactDataList);
         }
     }
 
