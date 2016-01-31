@@ -1,0 +1,14 @@
+# Enable Rewriting
+RewriteEngine On
+
+# the condition checks if the REQUEST_FILENAME is not a file and not a directory
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteCond %{REQUEST_FILENAME} !-d
+
+# Rewrite URLs
+# --> alles geht auf index.php
+# .../users/12345 --> index.php/users/12345
+# ...
+# Flag: QSA -> append query string from request to substituted URL
+#       L   -> last - stop processing rules
+RewriteRule ^ index.php [QSA,L]

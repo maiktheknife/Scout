@@ -1,19 +1,19 @@
 ext {
-    supportLibraryVersion = '23.1.0'
-    designVersion = '23.1.0'
-    playVersion = '7.8.0'
-    rxAndroidVersion = '1.0.1'
-    okhttpVersion = '2.5.0'
+    supportLibraryVersion = '23.1.1'
+    designVersion = '23.1.1'
+    playVersion = '8.4.0'
+    rxAndroidVersion = '1.1.0'
+    okhttpVersion = '2.7.0'
     retrofitVersion = '1.9.0'
     picassoVersion = '2.5.2'
     circularImageViewVersion = '1.1'
-    appIntroVersion = '3.2.0'
+    appIntroVersion = '3.3.0'
     butterVersion = '7.0.1'
-    fabsheetVersion = '1.0.5'
+    fabsheetVersion = '1.2'
     mapsutilVersion = '0.4'
-    aboutlibrariesVersion = '5.2.4'
+    aboutlibrariesVersion = '5.3.4'
     changelogVersion = '2.0.0'
-    dexcountVersion = '0.2.1'
+    dexcountVersion = '0.3.1'
 
     baseUtilDependencies = [
             // Std

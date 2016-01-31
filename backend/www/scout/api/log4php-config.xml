@@ -1,0 +1,42 @@
+<configuration xmlns="http://logging.apache.org/log4php/">
+ 
+    <appender name="slim" class="LoggerAppenderDailyFile">
+        <layout class="LoggerLayoutPattern">
+            <param name="conversionPattern" value="%date{Y-m-d H:i:s,u} %-5level %message%newline%ex" />
+        </layout>
+        <param name="file" value="../../../logs/slim-%s.log" />
+        <param name="datePattern" value="Y-m-d" />
+        <param name="append" value="true" />
+    </appender>
+    
+    <appender name="db" class="LoggerAppenderDailyFile">
+        <layout class="LoggerLayoutPattern">
+            <param name="conversionPattern" value="%date{Y-m-d H:i:s,u} %-5level %message%newline%ex" />
+        </layout>
+        <param name="file" value="../../../logs/db-%s.log" />
+        <param name="datePattern" value="Y-m-d" />
+        <param name="append" value="true" />
+    </appender>
+    
+    <appender name="default" class="LoggerAppenderFile">
+        <layout class="LoggerLayoutSimple" />
+        <param name="file" value="../../../logs/log.log" />
+        <param name="append" value="true" />
+    </appender>
+    
+    <logger name="slim" additivity="false">
+        <level value="DEBUG" />
+        <appender_ref ref="slim" />
+    </logger>
+    
+    <logger name="db" additivity="false">
+        <level value="DEBUG" />
+        <appender_ref ref="db" />
+    </logger>
+    
+    <root>
+        <level value="ALL" />
+        <appender_ref ref="default" />
+    </root>
+    
+</configuration>

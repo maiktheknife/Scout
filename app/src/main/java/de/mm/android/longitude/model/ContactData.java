@@ -27,7 +27,7 @@ public class ContactData extends SimpleContactData implements Comparable<Contact
     public static final String COLUMN_ACCURACY = "accuracy";
     public static final String COLUMN_ADDRESS = "address";
     public static final String COLUMN_UPDATED_ON = "updated_on";
-    private static final String TAG = ContactData.class.getName();
+    private static final String TAG = ContactData.class.getSimpleName();
 
     private String plus_id;
     private boolean is_confirmed;

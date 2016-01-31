@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Scout REST API</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <body>
+    
+    Successful request:
+
+{
+  "status": "success",
+  "data": {
+    /* Application-specific data would go here. */
+  },
+  "message": null /* Or optional success message */
+}
+Failed request:
+
+{
+  "status": "error",
+  "data": null, /* or optional error payload */
+  "message": "Error xyz has occurred"
+}
+    
+		<div class="container">
+			<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;border-color:#999;margin:0px auto;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#444;background-color:#F7FDFA;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#fff;background-color:#26ADE4;}
+.tg .tg-ga4e{font-size:100%;font-family:"Courier New", Courier, monospace !important;}
+.tg .tg-yvvu{font-weight:bold;background-color:#ffffff;color:#000000;text-align:center}
+.tg .tg-mi1b{background-color:#D2E4FC;font-weight:bold;font-size:100%;font-family:"Courier New", Courier, monospace !important;;text-align:center}
+.tg .tg-y3lu{background-color:#D2E4FC;font-size:100%;font-family:"Courier New", Courier, monospace !important;}
+@media screen and (max-width: 767px) {.tg {width: auto !important;}.tg col {width: auto !important;}.tg-wrap {overflow-x: auto;-webkit-overflow-scrolling: touch;margin: auto 0px;}}</style>
+
+<p>
+    <h1>Welcome To Scout REST API</h1>
+    <!-- <img src="images/banner.png" alt="Banner Bild" style="float:right;width:512px;height:250px;"> -->
+</p>    
+
+<div class="tg-wrap"><table class="tg">
+  <tr>
+    <th class="tg-yvvu" colspan="5">In Authorization Header: token</th>
+  </tr>
+  <tr>
+    <td class="tg-mi1b">URL</td>
+    <td class="tg-mi1b">Method</td>
+    <td class="tg-mi1b">Parameter</td>
+    <td class="tg-mi1b">Description</td>
+    <td class="tg-mi1b">Return</td>
+  </tr>
+  <tr>
+    <td class="tg-ga4e">/user</td>
+    <td class="tg-ga4e">post</td>
+    <td class="tg-ga4e">email, name, plus_id, gcm_regid</td>
+    <td class="tg-ga4e">user registration</td>
+    <td class="tg-ga4e">- HttpStatusCode: 201<br>- HttpStatusCode: 400 fehlerhafte Anfrage + JSON {
+      "error": {
+        "message": "Required field(s) name, .... is missing or empty""
+      }
+}<br>- HttpStatusCode: 409 User exitiert bereits</td>
+  </tr>
+  <tr>
+    <td class="tg-y3lu">/user/:emailhash/delete</td>
+    <td class="tg-y3lu">delete</td>
+    <td class="tg-y3lu"></td>
+    <td class="tg-y3lu">delete user</td>
+  </tr>
+  <tr>
+    <td class="tg-ga4e">/user/:emailhash/friends</td>
+    <td class="tg-ga4e">get</td>
+    <td class="tg-ga4e"></td>
+    <td class="tg-ga4e">get friends</td>
+  </tr>
+  <tr>
+    <td class="tg-y3lu">/user/:emailhash/newfriends</td>
+    <td class="tg-y3lu">get</td>
+    <td class="tg-y3lu"></td>
+    <td class="tg-y3lu">get unconfirmed friends</td>
+  </tr>
+  <tr>
+    <td class="tg-ga4e">/user/:emailhash/process</td>
+    <td class="tg-ga4e">get</td>
+    <td class="tg-ga4e">???</td>
+    <td class="tg-ga4e">get process info</td>
+  </tr>
+  <tr>
+    <td class="tg-y3lu">/user/:emailhash/pokefriends</td>
+    <td class="tg-y3lu">get</td>
+    <td class="tg-y3lu"></td>
+    <td class="tg-y3lu">poke all</td>
+  </tr>
+  <tr>
+    <td class="tg-ga4e">/user/:emailhash/pokefriend</td>
+    <td class="tg-ga4e">get</td>
+    <td class="tg-ga4e">friendmail</td>
+    <td class="tg-ga4e">poke one friend</td>
+  </tr>
+  <tr>
+    <td class="tg-y3lu">/user/:emailhash/addfriend</td>
+    <td class="tg-y3lu">post</td>
+    <td class="tg-y3lu">friendmail</td>
+    <td class="tg-y3lu">add one friend</td>
+  </tr>
+  <tr>
+    <td class="tg-ga4e">/user/:emailhash/confirmfriends</td>
+    <td class="tg-ga4e">post</td>
+    <td class="tg-ga4e">friendsarray</td>
+    <td class="tg-ga4e">confirm 1..* friends</td>
+  </tr>
+  <tr>
+    <td class="tg-y3lu">/user/:emailhash/deletefriends</td>
+    <td class="tg-y3lu">delete</td>
+    <td class="tg-y3lu">friendsarray</td>
+    <td class="tg-y3lu">deletes 1..* friends</td>
+  </tr>
+  <tr>
+    <td class="tg-ga4e">/user/:emailhash/insertlocation</td>
+    <td class="tg-ga4e">post</td>
+    <td class="tg-ga4e">latitude, longitude, acc, address, updated_on</td>
+    <td class="tg-ga4e">insert a location</td>
+  </tr>
+  <tr>
+    <td class="tg-y3lu">/user/:emailhash/renovateGCMRegID</td>
+    <td class="tg-y3lu">post</td>
+    <td class="tg-y3lu">gcm_reg_id</td>
+    <td class="tg-y3lu">add a gcm id</td>
+  </tr>
+</table></div>
+		</div>
+    </body>
+</html>

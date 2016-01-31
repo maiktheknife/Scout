@@ -54,7 +54,7 @@ implements LoginFragment.ILoginCallback, GoogleApiClient.ConnectionCallbacks, Go
         addSlide(IntroFragment.newInstance(R.layout.intro3));
         addSlide(LoginFragment.newInstance());
         setVibrate(false);
-        showDoneButton(false);
+        setProgressButtonEnabled(false);
         setUpGoogleApiClient();
     }
 
@@ -128,6 +128,14 @@ implements LoginFragment.ILoginCallback, GoogleApiClient.ConnectionCallbacks, Go
 
     @Override
     public void onDonePressed() {}
+
+    @Override
+    public void onNextPressed() {}
+
+    @Override
+    public void onSlideChanged() {
+
+    }
 
     /* ConnectionCallbacks, OnConnectionFailedListener */
 

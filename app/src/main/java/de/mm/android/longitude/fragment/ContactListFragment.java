@@ -192,8 +192,13 @@ public class ContactListFragment extends BaseFragment implements UpdateAble, Swi
     /* UpdateAble */
 
     @Override
-    public void update(@Nullable List<ContactData> data) {
-        Log.d(TAG, "update");
+    public void onConnectivityUpdate(boolean isConnected) {
+        isInetAvailable = isConnected;
+    }
+
+    @Override
+    public void onDataReceived(@Nullable List<ContactData> data) {
+        Log.d(TAG, "onDataReceived");
         if (swipeRefreshLayout.isRefreshing()) {
             swipeRefreshLayout.setRefreshing(false);
         }

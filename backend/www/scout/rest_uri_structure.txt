@@ -1,0 +1,60 @@
+In Authorization Header: token
+
+- Kontrolle auf Token
+        --> Missing Token: HTTP: 400 + JSON {"code": 1, "message": "Authorization Token is missing"}
+        --> Invalid Token: HTTP: 401 + JSON {"code": 2, "message": "Authorization Token is invalid"}
+        --> Unknown User:  HTTP: 404 + JSON {"code": 3, "message": "Unknown User"}
+        --> Okay --> go on
+            
+- Kontrolle auf Parameter
+        --> 1..* are missing: HTTP: 400 + JSON {"code": 4, "message": "Required field(s) <Fields>  is missing or empty"}
+        --> Okay --> go on
+        
+- Ausführung der Anfrage:
+        --> Okay       --> HTTP: 200/201, data JSON -> various, error JSON -> null
+        --> Exception: --> HTTP: 500 + data JSON -> null, error JSON -> {code=500, message=stacktrace}
+        
+url                                         method          parameters                            description                       returns
+
+/users                                      post            emailhash, name, plus_id, gcm_regid   user registration                 HTTP 201 + JSON {message=..., hash=...} / User already registered: 409 + error JSON {code=1, message=...}
+ /users/:userid                              get                                                   get all info about the user       
+ /users/:userid                              put             name                                  update user                       HTTP 200 + data JSON
+/users/:userid                              delete                                                delete user                       HTTP 200 + data JSON
+
+/friends                                    get                                                   get all friends                   HTTP 200 + data JSON
+/friends                                    post            friendemail                           add a Friend                      HTTP 201 + data JSON / Friend unknown: HTTP: 200 + error JSON {code=1, message=...}
+/friends                                    delete          friendsarray                          delete all/given friends          HTTP 200 + data JSON    
+/friends/unconfirmed                        get                                                   get all unconfirmed friends       HTTP 200 + data JSON
+/friends/confirm                            post            friendsarray                          confirm given friends             HTTP 201 + data JSON
+/friends/poke                               get                                                   poke all friends                  HTTP 200 + data JSON
+/friends/:friendid                          get                                                   get one friend                    HTTP 200 + data JSON
+/friends/:friendid                          delete                                                delete one friend                 HTTP 200 + data JSON
+/friends/:friendid/poke                     get                                                   poke one friend                   HTTP 200 + data JSON
+
+/device                                     post            gcm_reg_id                            add a gcm id                      HTTP 201 + data JSON
+ /device                                     delete          gcm_reg_id                            delete a gcm id                   HTTP 200 + data JSON
+
+/locations{?ab=,?bis=}	                    get	                                                  all user locations                HTTP 200 + data JSON
+/locations                                  post            latitude, longitude, alt, acc, address, when     insert a location                 HTTP 201 + data JSON
+ /locations/:locationid	                    get	                                                  get one location                  HTTP 200 + data JSON    
+ /locations/:locationid	                    put	                                                  update one location               HTTP 200 + data JSON
+ /locations/:locationid	                    delete                                                delete one location               HTTP 200 + data JSON
+
+Successful request:
+{
+  "isSuccess": true,
+  "data": {
+    /* Request-specific data would go here. */
+  },
+  "error": null
+}
+
+Failed request:
+{
+  "isSuccess": false,
+  "data": null,
+  "error": {
+    code = ?,
+    message = "Error xyz has occurred"
+    }
+}

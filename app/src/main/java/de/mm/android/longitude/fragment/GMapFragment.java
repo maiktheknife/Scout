@@ -312,9 +312,9 @@ public class GMapFragment
             setupMap();
             setupClusterManager();
             if (getArguments().containsKey(ARG_CONTACTS)) {
-                update(getArguments().getParcelableArrayList(ARG_CONTACTS));
+                onDataReceived(getArguments().getParcelableArrayList(ARG_CONTACTS));
             } else if (savedInstanceState != null) {
-                update(savedInstanceState.getParcelableArrayList(ARG_CONTACTS));
+                onDataReceived(savedInstanceState.getParcelableArrayList(ARG_CONTACTS));
             } else {
                 throw new IllegalStateException("Keine Argumente und Kein SavedState..., dann ist halt Feierabend");
             }
@@ -398,7 +398,7 @@ public class GMapFragment
     }
 
     public void update(@NonNull ContactData contact) {
-        Log.d(TAG, "update: " + contact);
+        Log.d(TAG, "onDataReceived: " + contact);
         zoomInContact(contact);
     }
 
@@ -414,13 +414,18 @@ public class GMapFragment
         }
     }
 
+    @Override
+    public void onConnectivityUpdate(boolean isConnected) {
+        isInetAvailable = isConnected;
+    }
+
     /** {@link UpdateAble} */
 
-    public void update(@Nullable final List<ContactData> contacts) {
+    public void onDataReceived(@Nullable final List<ContactData> contacts) {
         if (contacts == null) {
-            Log.d(TAG, "update: with 0 Values");
+            Log.d(TAG, "onDataReceived: with 0 Values");
         } else {
-            Log.d(TAG, "update: " + contacts.size());
+            Log.d(TAG, "onDataReceived: " + contacts.size());
             List<ContactData> confirmedContacts = new ArrayList<>();
             for (ContactData c : contacts) {
                 if (c.isConfirmed()) {

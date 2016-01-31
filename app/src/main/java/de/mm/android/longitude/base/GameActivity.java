@@ -9,6 +9,7 @@ import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
@@ -25,6 +26,7 @@ import com.google.example.games.basegameutils.GameHelperUtils;
 
 import de.mm.android.longitude.R;
 import de.mm.android.longitude.common.Constants;
+import de.mm.android.longitude.fragment.UpdateAble;
 import de.mm.android.longitude.model.SignInFailureReason;
 import de.mm.android.longitude.util.AccountUtil;
 import de.mm.android.longitude.util.NetworkUtil;
@@ -53,6 +55,10 @@ public abstract class GameActivity
             switch (action) {
                 case ConnectivityManager.CONNECTIVITY_ACTION:
                     isInetAvailable = NetworkUtil.isInternetAvailable(GameActivity.this);
+                    Fragment f = getSupportFragmentManager().findFragmentById(R.id.ac_container);
+                    if (f != null && f instanceof UpdateAble) {
+                        ((UpdateAble) f).onConnectivityUpdate(isInetAvailable);
+                    }
                     break;
                 default:
                     Log.w(TAG, "Unknown Action " + action);
