@@ -56,7 +56,7 @@
     <string name="menu_inviteFriends">Invite Friends</string>
     <string name="menu_pokeFriend">Poke</string>
     <string name="menu_pokeFriends">Poke Friends</string>
-    <string name="menu_deleteFriend">Delete Friends</string>
+    <string name="menu_deleteFriend">Delete</string>
     <string name="menu_settings">Einstellungen</string>
     <string name="menu_locationSettings">Standorteinstellungen</string>
     <string name="menu_editFriends">Edit Friends</string>

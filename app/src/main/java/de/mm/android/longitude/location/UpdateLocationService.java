@@ -96,7 +96,7 @@ public class UpdateLocationService extends IntentService implements GoogleApiCli
                     GameUtil.incrementDistance(this, googleApiClient, l);
                     GameUtil.submitDistanceScore(this, googleApiClient, (long) PreferenceUtil.getTraveledDistance(this));
                     PreferenceUtil.setLatestLocation(this, l);
-                    MyDBDelegate.insertProcessEntry(this, new ProcessEntry(l.getLatitude(), l.getLongitude(), l.getAltitude(), l.getAccuracy(), address));
+                    MyDBDelegate.Companion.insertProcessEntry(this, new ProcessEntry(l.getLatitude(), l.getLongitude(), l.getAltitude(), l.getAccuracy(), address));
                     Intent i = new Intent(LOCATION_ACTION);
                     i.putExtra(LOCATION_VALUE, l);
                     LocalBroadcastManager.getInstance(this).sendBroadcast(i);

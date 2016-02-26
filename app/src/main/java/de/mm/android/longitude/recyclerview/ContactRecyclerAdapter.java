@@ -48,7 +48,7 @@ public class ContactRecyclerAdapter extends RecyclerView.Adapter<ContactRecycler
     public void onBindViewHolder(MyRecyclerViewHolder holder, int position) {
         ContactData c = data.get(position);
         PopupMenu menu = new PopupMenu(context, holder.cardMenu);
-        if (c.isConfirmed()) {
+        if (c.is_confirmed()) {
             holder.itemView.setEnabled(true);
             holder.latestUpdate.setText(c.getUpdatedOnFormatted());
             holder.address.setText(c.getAddress() + " (" + Math.round(c.getDistanceTo(location)) + "m)");

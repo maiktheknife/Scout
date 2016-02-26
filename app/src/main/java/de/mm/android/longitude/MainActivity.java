@@ -14,6 +14,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
@@ -52,7 +53,7 @@ import de.mm.android.longitude.fragment.ChangeLogDialogFragment;
 import de.mm.android.longitude.fragment.ContactListFragment;
 import de.mm.android.longitude.fragment.GMapFragment;
 import de.mm.android.longitude.fragment.ProcessFragment;
-import de.mm.android.longitude.fragment.Slideable;
+import de.mm.android.longitude.fragment.SlideAble;
 import de.mm.android.longitude.fragment.UpdateAble;
 import de.mm.android.longitude.intro.IntroActivity;
 import de.mm.android.longitude.location.UpdateLocationService;
@@ -147,8 +148,8 @@ public class MainActivity extends GameActivity implements GMapFragment.IMapFragm
             public void onDrawerStateChanged(int newState) {}
             private void publishSlide(float offset) {
                 Fragment f = getSupportFragmentManager().findFragmentById(R.id.ac_container);
-                if (f != null && f instanceof Slideable) {
-                    ((Slideable) f).onSilde(offset);
+                if (f != null && f instanceof SlideAble) {
+                    ((SlideAble) f).onSilde(offset);
                 }
             }
         });
@@ -176,7 +177,7 @@ public class MainActivity extends GameActivity implements GMapFragment.IMapFragm
             curFragment = -1;
             curLocation = PreferenceUtil.getLatestLocation(this);
             curContactDataList = new ArrayList<>();
-            updateContacts(MyDBDelegate.selectFriends(this));
+            updateContacts(MyDBDelegate.Companion.selectFriends(this));
             loadFriends();
             pokeFriends();
             showFragment(R.id.drawer_map);
@@ -297,7 +298,7 @@ public class MainActivity extends GameActivity implements GMapFragment.IMapFragm
 		}
 		switch (which) {
 		case R.id.drawer_map:
-            curContactDataList = MyDBDelegate.selectFriends(this);
+            curContactDataList = MyDBDelegate.Companion.selectFriends(this);
             curFragment = which;
             navigationView.getMenu().getItem(0).setChecked(true);
             getSupportFragmentManager().beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN).replace(R.id.ac_container, GMapFragment.newInstance(curContactDataList)).commit();
@@ -328,16 +329,16 @@ public class MainActivity extends GameActivity implements GMapFragment.IMapFragm
             break;
 
         case R.id.drawer_achievements:
-            if (isInetAvailable && googleApiClient.isConnected()) {
-                startActivityForResult(Games.Achievements.getAchievementsIntent(googleApiClient), 12345);
+            if (isInetAvailable() && getGoogleApiClient().isConnected()) {
+                startActivityForResult(Games.Achievements.getAchievementsIntent(getGoogleApiClient()), 12345);
             } else {
                 showMessage(getString(R.string.error_noNetworkConnectionFound));
             }
             break;
 
         case R.id.drawer_leaderboard:
-            if (isInetAvailable && googleApiClient.isConnected()) {
-                startActivityForResult(Games.Leaderboards.getLeaderboardIntent(googleApiClient, getString(R.string.leaderboard_traveled_distance)), 12346);
+            if (isInetAvailable() && getGoogleApiClient().isConnected()) {
+                startActivityForResult(Games.Leaderboards.getLeaderboardIntent(getGoogleApiClient(), getString(R.string.leaderboard_traveled_distance)), 12346);
             } else {
                 showMessage(getString(R.string.error_noNetworkConnectionFound));
             }
@@ -405,9 +406,13 @@ public class MainActivity extends GameActivity implements GMapFragment.IMapFragm
 
         emailText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
             @Override
             public void afterTextChanged(Editable s) {
                 String email = emailText.getText().toString();
@@ -457,7 +462,7 @@ public class MainActivity extends GameActivity implements GMapFragment.IMapFragm
         }
 
         for (ContactData c : data) {
-            if (c.isConfirmed()) {
+            if (c.is_confirmed()) {
                 validContacts.add(c);
             }
         }
@@ -566,15 +571,15 @@ public class MainActivity extends GameActivity implements GMapFragment.IMapFragm
         if (isLoadingDone) {
             return;
         }
-        if (!googleApiClient.isConnected()) {
+        if (!getGoogleApiClient().isConnected()) {
             return;
         }
-        Person mee = Plus.PeopleApi.getCurrentPerson(googleApiClient);
+        Person mee = Plus.PeopleApi.getCurrentPerson(getGoogleApiClient());
 
         TextView name = (TextView) findViewById(R.id.f_drawer_profile_name);
         name.setText(PreferenceUtil.getAccountName(this));
         TextView email = (TextView) findViewById(R.id.f_drawer_profile_mail);
-        email.setText(Plus.AccountApi.getAccountName(googleApiClient));
+        email.setText(Plus.AccountApi.getAccountName(getGoogleApiClient()));
 
         if (mee.getImage() != null && mee.getImage().hasUrl()) { // g+ image set
             Log.d(TAG, "loadProfileInformation.loadProfil");
@@ -600,24 +605,28 @@ public class MainActivity extends GameActivity implements GMapFragment.IMapFragm
                         RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.f_drawer_relativelayout);
                         relativeLayout.setBackground(new BitmapDrawable(relativeLayout.getResources(), bitmap));
                     }
+
                     @Override
-                    public void onBitmapFailed(Drawable errorDrawable) {}
+                    public void onBitmapFailed(Drawable errorDrawable) {
+                    }
+
                     @Override
-                    public void onPrepareLoad(Drawable placeHolderDrawable) {}
+                    public void onPrepareLoad(Drawable placeHolderDrawable) {
+                    }
                 });
         }
         isLoadingDone = true;
     }
 
     private void updateContacts(final List<ContactData> data){
-        Log.d(TAG, "updateContacts: " + data.size());
+        Log.d(TAG, "updateContacts: " + data.size() + " " + curContactDataList);
 
         curContactDataList.clear();
         curContactDataList.addAll(data);
         Collections.sort(curContactDataList);
 
         setUpFriendsInDrawer(curContactDataList);
-        MyDBDelegate.mergeFriends(this, curContactDataList);
+        MyDBDelegate.Companion.mergeFriends(this, curContactDataList);
 
         Fragment f = getSupportFragmentManager().findFragmentById(R.id.ac_container);
         if (f != null && f instanceof UpdateAble) {
@@ -629,14 +638,16 @@ public class MainActivity extends GameActivity implements GMapFragment.IMapFragm
 
 	private void loadFriends() {
 		Log.d(TAG, "loadFriends");
-		if (!isInetAvailable) {
+        Log.d(TAG, "loadFriends\n" + PreferenceUtil.getAccountToken(this));
+
+        if (!isInetAvailable()) {
             showMessage(R.string.error_noNetworkConnectionFound);
         } else {
             Observable
                 .zip(webService.getFriends(), webService.getNewFriends(), (networkResponse, networkResponse2) -> {
                     if (!networkResponse.isSuccess() || !networkResponse2.isSuccess()) {
                         showMessage(networkResponse.getError().getMessage());
-                        throw new RuntimeException(""+networkResponse);
+                        throw new RuntimeException("" + networkResponse);
                     }
                     List<ContactData> data = new ArrayList<>();
                     data.addAll(networkResponse.getData().getFriends());
@@ -654,10 +665,10 @@ public class MainActivity extends GameActivity implements GMapFragment.IMapFragm
             return;
         }
 
-		if (!isInetAvailable) {
+		if (!isInetAvailable()) {
             showMessage(R.string.error_noNetworkConnectionFound);
         } else {
-            GameUtil.incrementPokeCount(this, googleApiClient);
+            GameUtil.incrementPokeCount(this, getGoogleApiClient());
             webService
                 .pokeFriend(which)
                 .observeOn(AndroidSchedulers.mainThread())
@@ -670,10 +681,10 @@ public class MainActivity extends GameActivity implements GMapFragment.IMapFragm
         if (!BuildConfig.GCM_ENABLED) {
             return;
         }
-		if (!isInetAvailable) {
+		if (!isInetAvailable()) {
             showMessage(R.string.error_noNetworkConnectionFound);
         } else {
-            GameUtil.incrementPokeCount(this, googleApiClient);
+            GameUtil.incrementPokeCount(this, getGoogleApiClient());
             webService
                 .pokeFriends()
                 .observeOn(AndroidSchedulers.mainThread())
@@ -683,7 +694,7 @@ public class MainActivity extends GameActivity implements GMapFragment.IMapFragm
 
     private void addFriend(final String email) {
         Log.d(TAG, "addFriend " + email);
-        if (!isInetAvailable) {
+        if (!isInetAvailable()) {
             showMessage(R.string.error_noNetworkConnectionFound);
         } else {
             webService
@@ -695,7 +706,7 @@ public class MainActivity extends GameActivity implements GMapFragment.IMapFragm
 
 	private void confirmFriend(final int which, final boolean isAccepted) {
 		Log.d(TAG, "confirmFriend " + which + " " + isAccepted);
-        if (!isInetAvailable) {
+        if (!isInetAvailable()) {
             showMessage(R.string.error_noNetworkConnectionFound);
         } else {
             webService
@@ -704,7 +715,7 @@ public class MainActivity extends GameActivity implements GMapFragment.IMapFragm
                 .subscribe(networkResponse -> {
                     if (networkResponse.isSuccess()) {
                         if (isAccepted){
-                            GameUtil.incrementFriendCount(MainActivity.this, googleApiClient);
+                            GameUtil.incrementFriendCount(MainActivity.this, getGoogleApiClient());
                         }
                         Fragment f = getSupportFragmentManager().findFragmentById(R.id.ac_container);
                         if (f != null && f instanceof ContactListFragment) {
@@ -721,7 +732,7 @@ public class MainActivity extends GameActivity implements GMapFragment.IMapFragm
 
     private void deleteFriend(final int which) {
         Log.d(TAG, "deleteFriend " + which);
-        if (!isInetAvailable) {
+        if (!isInetAvailable()) {
             showMessage(R.string.error_noNetworkConnectionFound);
         } else {
             webService
@@ -758,14 +769,29 @@ public class MainActivity extends GameActivity implements GMapFragment.IMapFragm
         pokeFriends();
 	}
 	
-	@Override
-	public void onMapAddFriendClicked(@AddingStrategy final int addingStrategy) {
-		Log.d(TAG, "onMapAddFriendClicked " + addingStrategy);
+    @Override
+    public void onMapContactClicked(@NonNull final ContactData contact) {
+        Log.d(TAG, "onMapContactClicked: " + contact);
+        pokeFriend(contact.getPerson_id());
+    }
 
-		if (!isInetAvailable){
+    @Override
+    public void onInviteContactClicked() {
+        Log.d(TAG, "onInviteContactClicked");
+        GameUtil.inviteFriends(this);
+        GameUtil.incrementPromotionCount(this, getGoogleApiClient());
+    }
+
+    /* IContactListFragment */
+
+    @Override
+    public void onContactAddFriendClicked(@AddingStrategy final int addingStrategy) {
+        Log.d(TAG, "onMapAddFriendClicked " + addingStrategy);
+
+        if (!isInetAvailable()){
             showMessage(R.string.error_noNetworkConnectionFound);
-			return;
-		}
+            return;
+        }
 
         switch (addingStrategy){
             case STRATEGY_ADDRESS_BOOK:
@@ -810,27 +836,7 @@ public class MainActivity extends GameActivity implements GMapFragment.IMapFragm
             default:
                 break;
         }
-	}
-
-    @Override
-    public void onMapContactClicked(final ContactData contact) {
-        Log.d(TAG, "onMapContactClicked: " + contact);
     }
-
-    @Override
-	public void onMapContactLongClicked(final ContactData contact) {
-		Log.d(TAG, "onMapContactLongClicked: " + contact);
-		pokeFriend(contact.getPerson_id());
-    }
-
-    @Override
-    public void onInviteContactClicked() {
-        Log.d(TAG, "onInviteContactClicked");
-        GameUtil.inviteFriends(this);
-        GameUtil.incrementPromotionCount(this, googleApiClient);
-    }
-
-    /* IContactListFragment */
 
     @Override
     public void onContactRefreshClicked() {
@@ -874,11 +880,11 @@ public class MainActivity extends GameActivity implements GMapFragment.IMapFragm
     protected void onSuccess() {
         Log.d(TAG, "onSuccess");
         loadProfileInformation();
-        GameUtil.incrementAppUsage(this, googleApiClient);
+        GameUtil.incrementAppUsage(this, getGoogleApiClient());
     }
 
     @Override
-    protected void onFailure(final SignInFailureReason reason) {
+    protected void onFailure(@NonNull final SignInFailureReason reason) {
         Log.d(TAG, "onFailure: " + reason);
         showMessage(reason.toString());
     }

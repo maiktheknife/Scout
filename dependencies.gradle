@@ -1,6 +1,6 @@
 ext {
-    supportLibraryVersion = '23.1.1'
-    designVersion = '23.1.1'
+    supportLibraryVersion = '23.2.0'
+    designVersion = '23.2.0'
     playVersion = '8.4.0'
     rxAndroidVersion = '1.1.0'
     okhttpVersion = '2.7.0'
@@ -14,6 +14,7 @@ ext {
     aboutlibrariesVersion = '5.3.4'
     changelogVersion = '2.0.0'
     dexcountVersion = '0.3.1'
+    kotlin_version = '1.0.0-rc-1036'
 
     baseUtilDependencies = [
             // Std
@@ -38,6 +39,7 @@ ext {
             design           : "com.android.support:design:$designVersion",
 
             // PlayService
+            playAuth         : "com.google.android.gms:play-services-auth:$playVersion",
             playIdentity     : "com.google.android.gms:play-services-identity:$playVersion",
             playBase         : "com.google.android.gms:play-services-base:$playVersion",
             playGcm          : "com.google.android.gms:play-services-gcm:$playVersion",
@@ -78,5 +80,7 @@ ext {
 
             // ChangeLog Library provides an easy way to display a change log in your Android app --> https://github.com/gabrielemariotti/changeloglib
             changeLog        : "com.github.gabrielemariotti.changeloglib:changelog:$changelogVersion",
+
+            kotlin           : "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version",
     ]
 }

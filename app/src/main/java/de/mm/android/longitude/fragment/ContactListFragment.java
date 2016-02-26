@@ -2,7 +2,9 @@ package de.mm.android.longitude.fragment;
 
 import android.content.Context;
 import android.location.Location;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -18,6 +20,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.gordonwong.materialsheetfab.MaterialSheetFab;
+import com.gordonwong.materialsheetfab.MaterialSheetFabEventListener;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,16 +34,29 @@ import de.mm.android.longitude.R;
 import de.mm.android.longitude.base.BaseFragment;
 import de.mm.android.longitude.model.ContactData;
 import de.mm.android.longitude.recyclerview.ContactRecyclerAdapter;
+import de.mm.android.longitude.view.SheetFAB;
 
 /**
  * Created by Max on 31.05.2015.
  */
-public class ContactListFragment extends BaseFragment implements UpdateAble, SwipeRefreshLayout.OnRefreshListener, AppBarLayout.OnOffsetChangedListener {
+public class ContactListFragment
+        extends BaseFragment
+        implements UpdateAble, SlideAble, BackwardAble,  SwipeRefreshLayout.OnRefreshListener, AppBarLayout.OnOffsetChangedListener {
     private static final String ARG_CONTACTS = "contacts";
     private static final String ARG_LOCATION = "location";
     private static final String TAG = ContactListFragment.class.getSimpleName();
 
     public interface IContactFragment {
+        int STRATEGY_ADDRESS_BOOK = 0;
+        int STRATEGY_EMAIL = 1;
+        int STRATEGY_PLUS = 2;
+
+        @Retention(RetentionPolicy.SOURCE)
+        @IntDef(value = {STRATEGY_ADDRESS_BOOK, STRATEGY_EMAIL, STRATEGY_PLUS})
+        @interface AddingStrategy {}
+
+        void onContactAddFriendClicked(@AddingStrategy final int strategy);
+        void onInviteContactClicked();
         void onContactRefreshClicked();
         void onContactClicked(final int which);
         void onContactPoked(final int which);
@@ -59,6 +79,9 @@ public class ContactListFragment extends BaseFragment implements UpdateAble, Swi
 
     private IContactFragment listener;
     private ContactRecyclerAdapter adapter;
+    private MaterialSheetFab<SheetFAB> materialSheetFab;
+    private SheetFAB sheetFAB;
+    private int statusBarColor;
 
     @Bind(R.id.f_contacts_appbar)
     AppBarLayout appBarLayout;
@@ -147,6 +170,43 @@ public class ContactListFragment extends BaseFragment implements UpdateAble, Swi
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        sheetFAB = (SheetFAB) view.findViewById(R.id.f_map_sheetfab);
+        View sheetView = view.findViewById(R.id.f_map_fab_sheet);
+        View overlay = view.findViewById(R.id.f_map_overlay);
+        int sheetColor = getResources().getColor(android.R.color.white);
+        int fabColor = getResources().getColor(R.color.accentColor);
+        materialSheetFab = new MaterialSheetFab<>(sheetFAB, sheetView, overlay, sheetColor, fabColor);
+        materialSheetFab.setEventListener(new MaterialSheetFabEventListener() {
+            @Override
+            public void onHideSheet() {
+                statusBarColor = getStatusBarColor();
+                setStatusBarColor(getResources().getColor(R.color.primaryColorDark));
+            }
+
+            @Override
+            public void onShowSheet() {
+                setStatusBarColor(statusBarColor);
+            }
+        });
+
+        view.findViewById(R.id.f_map_fabsheet_item_book).setOnClickListener(v -> {
+            listener.onContactAddFriendClicked(IContactFragment.STRATEGY_ADDRESS_BOOK);
+            materialSheetFab.hideSheet();
+        });
+        view.findViewById(R.id.f_map_fabsheet_item_email).setOnClickListener(v -> {
+            listener.onContactAddFriendClicked(IContactFragment.STRATEGY_EMAIL);
+            materialSheetFab.hideSheet();
+        });
+        view.findViewById(R.id.f_map_fabsheet_item_plus).setOnClickListener(v -> {
+            listener.onContactAddFriendClicked(IContactFragment.STRATEGY_PLUS);
+            materialSheetFab.hideSheet();
+        });
+        view.findViewById(R.id.f_map_fabsheet_item_share).setOnClickListener(v -> {
+            listener.onInviteContactClicked();
+            materialSheetFab.hideSheet();
+        });
+
         return view;
     }
 
@@ -170,6 +230,19 @@ public class ContactListFragment extends BaseFragment implements UpdateAble, Swi
         super.onPause();
     }
 
+    private int getStatusBarColor() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            return getActivity().getWindow().getStatusBarColor();
+        }
+        return 0;
+    }
+
+    private void setStatusBarColor(int color) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getActivity().getWindow().setStatusBarColor(color);
+        }
+    }
+
     /* AppBarLayout.OnOffsetChangedListener */
 
     @Override
@@ -181,7 +254,7 @@ public class ContactListFragment extends BaseFragment implements UpdateAble, Swi
 
     @Override
     public void onRefresh() {
-        if (isInetAvailable) {
+        if (isInetAvailable()) {
             listener.onContactRefreshClicked();
         } else {
             showMessage(R.string.error_noNetworkConnectionFound);
@@ -193,7 +266,7 @@ public class ContactListFragment extends BaseFragment implements UpdateAble, Swi
 
     @Override
     public void onConnectivityUpdate(boolean isConnected) {
-        isInetAvailable = isConnected;
+        setInetAvailable(isConnected);
     }
 
     @Override
@@ -208,6 +281,29 @@ public class ContactListFragment extends BaseFragment implements UpdateAble, Swi
         Log.d(TAG, "onContactUpdate: " + data);
         adapter.clear();
         adapter.addItems(data);
+    }
+
+    /** {@link SlideAble} */
+
+    @Override
+    public void onSilde(float offset) {
+        if (materialSheetFab != null && sheetFAB != null) {
+            if (materialSheetFab.isSheetVisible()) {
+                materialSheetFab.hideSheet();
+            }
+            sheetFAB.setTranslationX(offset * 200);
+        }
+    }
+
+    /** {@link BackwardAble} */
+
+    @Override
+    public boolean onStepBack() {
+        if (materialSheetFab != null && materialSheetFab.isSheetVisible()) {
+            materialSheetFab.hideSheet();
+            return true;
+        }
+        return false;
     }
 
     /* Update via Activity */

@@ -56,7 +56,89 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scrollbars="vertical" />
+
     </android.support.v4.widget.SwipeRefreshLayout>
+
+    <de.mm.android.longitude.view.SheetFAB
+        android:id="@+id/f_map_sheetfab"
+        android:transitionName="foo"
+        style="@style/Widget.Fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_menu_invite" />
+
+    <!--Overlay that dims the screen -->
+    <com.gordonwong.materialsheetfab.DimOverlayFrameLayout
+        android:id="@+id/f_map_overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!-- Circular reveal container for the sheet -->
+    <io.codetail.widget.RevealLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="end|bottom"
+        android:orientation="vertical">
+
+        <!-- Sheet that contains your items -->
+        <android.support.v7.widget.CardView
+            android:id="@+id/f_map_fab_sheet"
+            style="@style/Widget.MaterialSheetFab.Sheet">
+
+            <!-- Sheet items -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/colorPrimary"
+                android:orientation="vertical">
+
+                <!-- Address Book -->
+                <TextView
+                    android:id="@+id/f_map_fabsheet_item_book"
+                    style="@style/TextAppearance.MaterialSheetFab.Sheet.Item"
+                    android:drawableLeft="@mipmap/ic_menu_friendslist"
+                    android:drawableStart="@mipmap/ic_menu_friendslist"
+                    android:text="@string/fab_title_addressbook" />
+
+                <!-- EMail -->
+                <TextView
+                    android:id="@+id/f_map_fabsheet_item_email"
+                    style="@style/TextAppearance.MaterialSheetFab.Sheet.Item"
+                    android:drawableLeft="@android:drawable/ic_menu_edit"
+                    android:drawableStart="@android:drawable/ic_menu_edit"
+                    android:text="@string/fab_title_email" />
+
+                <!-- Google+ -->
+                <TextView
+                    android:id="@+id/f_map_fabsheet_item_plus"
+                    style="@style/TextAppearance.MaterialSheetFab.Sheet.Item"
+                    android:drawableLeft="@mipmap/btn_gplus_white_normal"
+                    android:drawableStart="@mipmap/btn_gplus_white_normal"
+                    android:text="@string/fab_title_googleplus" />
+
+                <!-- Share -->
+                <TextView
+                    android:id="@+id/f_map_fabsheet_item_share"
+                    style="@style/TextAppearance.MaterialSheetFab.Sheet.Item"
+                    android:drawableLeft="@android:drawable/ic_menu_share"
+                    android:drawableStart="@android:drawable/ic_menu_share"
+                    android:text="@string/fab_title_share" />
+
+                <!-- Add Menu -->
+                <TextView
+                    android:id="@+id/f_map_fabsheet_item"
+                    style="@style/TextAppearance.MaterialSheetFab.Sheet.Item"
+                    android:background="?attr/colorAccent"
+                    android:clickable="false"
+                    android:drawableLeft="@mipmap/ic_menu_invite"
+                    android:drawableStart="@mipmap/ic_menu_invite"
+                    android:text="@string/fab_title_sheet"
+                    android:textColor="?attr/colorPrimary" />
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+    </io.codetail.widget.RevealLinearLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/f_contacts_fab"

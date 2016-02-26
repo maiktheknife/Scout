@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="AppTheme.Base" parent="Theme.AppCompat.NoActionBar">
         <item name="colorPrimary">@color/primaryColor</item>
@@ -13,5 +13,9 @@
     <style name="AppTheme.Settings" parent="AppTheme" >
         <!--<item name="preferenceTheme">@style/PreferenceThemeOverlay</item>-->
     </style>
+
+    <!--<style name="AppTheme.Simple" parent="AppTheme" >-->
+        <!--<item name="android:windowBackground">@drawable/start_logo</item>-->
+    <!--</style>-->
 
 </resources>

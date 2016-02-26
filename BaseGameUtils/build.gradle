@@ -16,3 +16,11 @@ dependencies {
     compile baseUtilDependencies.playGames
     compile baseUtilDependencies.playPlus
 }
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+}
+repositories {
+    mavenCentral()
+}

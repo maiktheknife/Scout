@@ -41,7 +41,7 @@ import de.mm.android.longitude.database.MyDBDelegate;
 import de.mm.android.longitude.model.ProcessEntry;
 import de.mm.android.longitude.util.PreferenceUtil;
 
-public class ProcessFragment extends Fragment implements Slideable {
+public class ProcessFragment extends Fragment implements SlideAble {
     private static final String TAG = ProcessFragment.class.getSimpleName();
 
     public static ProcessFragment newInstance() {
@@ -136,7 +136,7 @@ public class ProcessFragment extends Fragment implements Slideable {
             tileOverlay.remove();
             tileOverlay = null;
         } else {
-            List<ProcessEntry> l = MyDBDelegate.selectProcess(getActivity(), null, null);
+            List<ProcessEntry> l = MyDBDelegate.Companion.selectProcess(getActivity(), null, null);
             List<LatLng> heatList = new ArrayList<>(l.size());
             for (ProcessEntry p : l) {
                 heatList.add(new LatLng(p.getLat(), p.getLon()));
@@ -230,7 +230,7 @@ public class ProcessFragment extends Fragment implements Slideable {
     private void showDate(Calendar min, Calendar max) {
         googleMap.clear();
 
-        List<ProcessEntry> process = MyDBDelegate.selectProcess(getActivity(), min, max);
+        List<ProcessEntry> process = MyDBDelegate.Companion.selectProcess(getActivity(), min, max);
 
         PolylineOptions options = new PolylineOptions();
         options.color(getResources().getColor(R.color.black_transparent));
@@ -241,7 +241,7 @@ public class ProcessFragment extends Fragment implements Slideable {
         googleMap.addPolyline(options);
     }
 
-    /** {@link Slideable} */
+    /** {@link SlideAble} */
 
     @Override
     public void onSilde(float offset) {

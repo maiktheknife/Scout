@@ -3,6 +3,7 @@ package de.mm.android.longitude;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
@@ -63,7 +64,7 @@ public class SettingsActivity extends GameActivity implements SettingsFragment.I
     }
 
     @Override
-    public void onFailure(final SignInFailureReason reason) {
+    public void onFailure(@NonNull final SignInFailureReason reason) {
         Log.d(TAG, "onFailure" + reason);
     }
 
@@ -84,7 +85,7 @@ public class SettingsActivity extends GameActivity implements SettingsFragment.I
     @Override
     public void onGCMRegIDRenovationClicked() {
         Log.d(TAG, "onGCMRegIDRenovationClicked");
-        if (!isInetAvailable) {
+        if (!isInetAvailable()) {
             showMessage(R.string.error_noNetworkConnectionFound);
         } else {
             dialog.show();
@@ -93,8 +94,8 @@ public class SettingsActivity extends GameActivity implements SettingsFragment.I
                 .flatMap(webService::addGCMRegID)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(networkResponse -> {
-                    showMessage(networkResponse.isSuccess() ? networkResponse.getData().getMessage() : networkResponse.getError().getMessage());
                     dialog.dismiss();
+                    showMessage(networkResponse.isSuccess() ? networkResponse.getData().getMessage() : networkResponse.getError().getMessage());
                 }, errorAction);
         }
     }
@@ -102,16 +103,15 @@ public class SettingsActivity extends GameActivity implements SettingsFragment.I
     @Override
     public void onSignOut() {
         Log.d(TAG, "onSignOut");
-        if (!isInetAvailable) {
+        if (!isInetAvailable()) {
             showMessage(R.string.error_noNetworkConnectionFound);
         } else {
             dialog.show();
-            revokeGplusAccess(status -> {
+            revokeAccess(status -> {
                 dialog.dismiss();
                 PreferenceUtil.setUsingApp(this, false);
                 PreferenceUtil.setAccountEMail(this, null);
                 PreferenceUtil.setAccountName(this, null);
-//                PreferenceUtil.setAccountPersonID(this, -1);
                 finish();
             });
         }
