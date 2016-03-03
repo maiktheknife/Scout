@@ -12,11 +12,7 @@ import de.mm.android.longitude.R
  */
 class ButtonPreference : Preference {
 
-    interface ClickListener {
-        fun onClick()
-    }
-
-    private var listener: ClickListener? = null
+    private var listener: OnPreferenceClickListener? = null
 
     constructor(context: Context) : super(context) {
         init()
@@ -36,10 +32,10 @@ class ButtonPreference : Preference {
 
     override fun onBindView(view: View) {
         super.onBindView(view)
-        view.findViewById(R.id.preference_button).setOnClickListener { v -> listener?.onClick() }
+        view.findViewById(R.id.preference_button).setOnClickListener { v -> listener?.onPreferenceClick(this) }
     }
 
-    fun setOnButtonClickListener(listener: ClickListener) {
+    fun setOnButtonClickListener(listener: OnPreferenceClickListener) {
         this.listener = listener
     }
 

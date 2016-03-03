@@ -90,7 +90,7 @@ public class UpdateLocationService extends IntentService implements GoogleApiCli
             if (l == null) {
                 return;
             }
-            AddressTask
+            AddressTask.INSTANCE
                 .getAddress(this, l)
                 .flatMap(address -> {
                     GameUtil.incrementDistance(this, googleApiClient, l);

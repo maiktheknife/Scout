@@ -89,7 +89,7 @@ public class SettingsActivity extends GameActivity implements SettingsFragment.I
             showMessage(R.string.error_noNetworkConnectionFound);
         } else {
             dialog.show();
-            GCMRegUtil
+            GCMRegUtil.INSTANCE
                 .getNewGCMRegID(this)
                 .flatMap(webService::addGCMRegID)
                 .observeOn(AndroidSchedulers.mainThread())

@@ -9,24 +9,15 @@ import com.google.maps.android.clustering.ClusterItem
 import de.mm.android.longitude.common.Constants
 import java.text.ParseException
 
-class ContactData : SimpleContactData, Comparable<ContactData>, ClusterItem {
-
-    var plus_id: String
-        private set
-    var is_confirmed: Boolean = false
-        private set
-    var latitude: Double = 0.toDouble()
-        private set
-    var longitude: Double = 0.toDouble()
-        private set
-    var altitude: Double = 0.toDouble()
-        private set
-    var accuracy: Double = 0.toDouble()
-        private set
-    var updated_on: String
-        private set
-    var address: String
-        private set
+class ContactData: SimpleContactData, Comparable<ContactData>, ClusterItem {
+    val plus_id: String
+    val is_confirmed: Boolean
+    val latitude: Double
+    val longitude: Double
+    val altitude: Double
+    val accuracy: Double
+    val updated_on: String
+    val address: String
 
     constructor(person_id: Int, email: String, name: String, plusID: String, isConfirmed: Boolean,
                 latitude: Double, longitude: Double, altitude: Double, accuracy: Double,
@@ -51,7 +42,7 @@ class ContactData : SimpleContactData, Comparable<ContactData>, ClusterItem {
                 Log.d(TAG, "3 " + xxx)
                 return xxx
             } catch (e: ParseException) {
-                Log.e(TAG, "", e)
+                Log.e(TAG, "e", e)
             }
             return updated_on
         }

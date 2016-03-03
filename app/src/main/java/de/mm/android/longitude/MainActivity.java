@@ -381,7 +381,7 @@ public class MainActivity extends GameActivity implements GMapFragment.IMapFragm
                 if (!latestVersion.equals(thisVersion)) {
                     PreferenceUtil.setVersion(this, thisVersion);
                     showChangeLogDialog();
-                    GCMRegUtil
+                    GCMRegUtil.INSTANCE
                         .getNewGCMRegID(this)
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(s -> showMessage("GCM erneuert"), t -> showMessage("GCM erneuert fehlgeschlagen: " + t.getLocalizedMessage()));
@@ -639,6 +639,9 @@ public class MainActivity extends GameActivity implements GMapFragment.IMapFragm
 	private void loadFriends() {
 		Log.d(TAG, "loadFriends");
         Log.d(TAG, "loadFriends\n" + PreferenceUtil.getAccountToken(this));
+
+        ContactData cd = new ContactData();
+
 
         if (!isInetAvailable()) {
             showMessage(R.string.error_noNetworkConnectionFound);
