@@ -27,7 +27,7 @@ android {
         }
         release {
             debuggable false
-            buildConfigField "boolean", "GCM_ENABLED", "false"
+            buildConfigField "boolean", "GCM_ENABLED", "true"
             minifyEnabled true
             // Library specific proguard files
             proguardFile 'proguard-butterknife-7.pro'
@@ -90,10 +90,8 @@ dependencies {
     compile app.aboutlibraries
     compile app.changeLog
     compile app.kotlin
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
 buildscript {
-    ext.kotlin_version = '1.0.0'
     repositories {
         mavenCentral()
     }

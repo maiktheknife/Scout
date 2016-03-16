@@ -36,7 +36,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.games.Games;
+import com.google.android.gms.plus.People;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
 import com.squareup.picasso.Picasso;
@@ -65,6 +67,7 @@ import de.mm.android.longitude.network.RestService;
 import de.mm.android.longitude.util.AccountUtil;
 import de.mm.android.longitude.util.GameUtil;
 import de.mm.android.longitude.util.PreferenceUtil;
+import de.mm.android.longitude.util.StorageUtil;
 import retrofit.RetrofitError;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
@@ -472,55 +475,57 @@ public class MainActivity extends GameActivity implements GMapFragment.IMapFragm
         for (final ContactData c: validContacts) {
             final MenuItem xx = subMenu.add(c.getName());
 
-//            PendingResult<People.LoadPeopleResult> result = Plus.PeopleApi.load(googleApiClient, c.getPlusID());
-//            result.setResultCallback(loadPeopleResult -> {
-//                Log.d(TAG, "setUpFriendsInDrawer.loadPeopleResult");
-//                if (loadPeopleResult == null || loadPeopleResult.getPersonBuffer() == null) {
-//                    return;
-//                }
-//                for (Person p : loadPeopleResult.getPersonBuffer()) {
-//                    String photoUrl = p.getImage().getUrl();
-//                    photoUrl = photoUrl.substring(0, photoUrl.length() - 2) + "100";
-//                    Log.d(TAG, "setUpFriendsInDrawer.loadPeopleResult.url: " + photoUrl);
-//                    Picasso
-//                        .with(this)
-//                        .load(photoUrl)
-//                        .placeholder(android.R.drawable.ic_menu_help)
-//                        .into(new Target() {
-//                            @Override
-//                            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-//                                Log.d(TAG, "setUpFriendsInDrawer.loadPeopleResult.onBitmapLoaded: " + bitmap);
-//                                BitmapDrawable bitmapDrawable = new BitmapDrawable(navigationView.getResources(), bitmap);
-////                                BitmapDrawable bitmapDrawable = new BitmapDrawable(getResources(), bitmap);
-////                                int width = bitmap.getWidth();
-////                                int height = bitmap.getHeight();
-////                                Set<Integer> colors = new HashSet<>(0);
-////                                for(int x = 0; x < width; x++){
-////                                    for(int y = 0; y < height; y++){
-////                                        colors.add(bitmap.getPixel(x,y));
-////                                    }
-////                                }
-////                                Log.d(TAG, "setUpFriendsInDrawer.loadPeopleResult.onBitmapLoaded: " + colors.size() + " " + bitmapDrawable);
-//
-//                                xx.setIcon(bitmapDrawable);
-//                                navigationView.getMenu().setGroupVisible(2291, false);
-//                                navigationView.getMenu().setGroupVisible(2291, true);
-//
-////                                ViewGroup v = (ViewGroup) findViewById(android.R.id.content);
-////                                ImageView iv = new ImageView(MainActivity.this);
-////                                iv.setImageDrawable(bitmapDrawable);
-////                                v.addView(iv);
-//                            }
-//                            @Override
-//                            public void onBitmapFailed(Drawable errorDrawable) {
-//                                Log.d(TAG, "setUpFriendsInDrawer.loadPeopleResult.onBitmapFailed");
-//                            }
-//                            @Override
-//                            public void onPrepareLoad(Drawable placeHolderDrawable) {
-//                                Log.d(TAG, "setUpFriendsInDrawer.loadPeopleResult.onPrepareLoad");
-//                                xx.setIcon(placeHolderDrawable);
-//                            }
-//                        });
+            PendingResult<People.LoadPeopleResult> result = Plus.PeopleApi.load(googleApiClient, c.getPlus_id());
+            result.setResultCallback(loadPeopleResult -> {
+                Log.d(TAG, "setUpFriendsInDrawer.loadPeopleResult");
+                if (loadPeopleResult == null || loadPeopleResult.getPersonBuffer() == null) {
+                    return;
+                }
+                for (Person p : loadPeopleResult.getPersonBuffer()) {
+                    String photoUrl = p.getImage().getUrl();
+                    photoUrl = photoUrl.substring(0, photoUrl.length() - 2) + "100";
+                    Log.d(TAG, "setUpFriendsInDrawer.loadPeopleResult.url: " + photoUrl);
+                    Picasso
+                        .with(this)
+                        .load(photoUrl)
+                        .placeholder(android.R.drawable.ic_menu_help)
+                        .into(new Target() {
+                            @Override
+                            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                                Log.d(TAG, "setUpFriendsInDrawer.loadPeopleResult.onBitmapLoaded: " + bitmap);
+                                BitmapDrawable bitmapDrawable = new BitmapDrawable(navigationView.getResources(), bitmap);
+//                                BitmapDrawable bitmapDrawable = new BitmapDrawable(getResources(), bitmap);
+//                                int width = bitmap.getWidth();
+//                                int height = bitmap.getHeight();
+//                                Set<Integer> colors = new HashSet<>(0);
+//                                for(int x = 0; x < width; x++){
+//                                    for(int y = 0; y < height; y++){
+//                                        colors.add(bitmap.getPixel(x,y));
+//                                    }
+//                                }
+//                                Log.d(TAG, "setUpFriendsInDrawer.loadPeopleResult.onBitmapLoaded: " + colors.size() + " " + bitmapDrawable);
+
+                                StorageUtil.storeBitmap(MainActivity.this, c.getEmail(), bitmap);
+
+                                xx.setIcon(bitmapDrawable);
+                                navigationView.getMenu().setGroupVisible(2291, false);
+                                navigationView.getMenu().setGroupVisible(2291, true);
+
+//                                ViewGroup v = (ViewGroup) findViewById(android.R.id.content);
+//                                ImageView iv = new ImageView(MainActivity.this);
+//                                iv.setImageDrawable(bitmapDrawable);
+//                                v.addView(iv);
+                            }
+                            @Override
+                            public void onBitmapFailed(Drawable errorDrawable) {
+                                Log.d(TAG, "setUpFriendsInDrawer.loadPeopleResult.onBitmapFailed");
+                            }
+                            @Override
+                            public void onPrepareLoad(Drawable placeHolderDrawable) {
+                                Log.d(TAG, "setUpFriendsInDrawer.loadPeopleResult.onPrepareLoad");
+                                xx.setIcon(placeHolderDrawable);
+                            }
+                        });
 
 //                    Bitmap pic = StorageUtil.loadBitmap(MainActivity.this, c.getEmail());
 //                    if (pic != null) {
@@ -540,9 +545,9 @@ public class MainActivity extends GameActivity implements GMapFragment.IMapFragm
 
 //                    navigationView.getMenu().setGroupVisible(2291, false);
 //                    navigationView.getMenu().setGroupVisible(2291, true);
-//                }
-//                loadPeopleResult.release();
-//            });
+                }
+                loadPeopleResult.release();
+            });
 
 //            xx.setIcon(R.mipmap.profil_placeholder);
             xx.setIcon(android.R.drawable.ic_menu_help);

@@ -13,10 +13,6 @@ import de.mm.android.longitude.model.ProcessEntry
  */
 class MyDBDelegate private constructor() {
 
-    init {
-        throw AssertionError("No Instances")
-    }
-
     companion object {
 
         /* Insert + Update */
@@ -45,7 +41,7 @@ class MyDBDelegate private constructor() {
             return data
         }
 
-        fun selectProcess(c: Context, min: Calendar, max: Calendar?): List<ProcessEntry> {
+        fun selectProcess(c: Context, min: Calendar?, max: Calendar?): List<ProcessEntry> {
             val db = MyDB(c)
             db.open()
             val data = db.selectProcess(min, max)

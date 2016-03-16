@@ -14,7 +14,7 @@ ext {
     aboutlibrariesVersion = '5.3.4'
     changelogVersion = '2.0.0'
     dexcountVersion = '0.3.1'
-    kotlin_version = '1.0.0-rc-1036'
+    kotlin_version = '1.0.0'
 
     baseUtilDependencies = [
             // Std

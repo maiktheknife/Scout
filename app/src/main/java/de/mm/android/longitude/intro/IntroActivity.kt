@@ -41,7 +41,7 @@ class IntroActivity : AppIntro2(), LoginFragment.ILoginCallback, GoogleApiClient
     private var mIntentInProgress: Boolean = false // A flag indicating that a PendingIntent is in progress and prevents us from starting further intents.
     private lateinit var googleApiClient: GoogleApiClient
     private var mConnectionResult: ConnectionResult? = null
-    private var restService: RestService? = null
+    private lateinit var restService: RestService
     private var tmp_email: String? = null
 
     override fun init(bundle: Bundle?) {
@@ -49,19 +49,10 @@ class IntroActivity : AppIntro2(), LoginFragment.ILoginCallback, GoogleApiClient
         addSlide(IntroFragment.newInstance(R.layout.intro2))
         addSlide(IntroFragment.newInstance(R.layout.intro3))
         addSlide(LoginFragment.newInstance())
-        setVibrate(false)
+        isVibrateOn = false
         isProgressButtonEnabled = false
         setUpGoogleApiClient()
-    }
-
-    override fun onStart() {
-        super.onStart()
         restService = RestService.Creator.create(this)
-    }
-
-    override fun onStop() {
-        super.onStop()
-        restService = null
     }
 
     private fun setUpGoogleApiClient() {
@@ -89,7 +80,7 @@ class IntroActivity : AppIntro2(), LoginFragment.ILoginCallback, GoogleApiClient
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         Log.d(TAG, "onActivityResult:" + GameHelperUtils.activityResponseCodeToString(resultCode))
 
         when (requestCode) {
@@ -191,41 +182,38 @@ class IntroActivity : AppIntro2(), LoginFragment.ILoginCallback, GoogleApiClient
     }
 
     override fun onLoginPressed(name: String) {
-        Log.d(TAG, "onLoginPressed")
+        Log.d(TAG, "onLoginPressed $name")
 
-//        GCMRegUtil
-//            .getNewGCMRegID(this).flatMap<NetworkResponse>({ gcmId ->
-//                Log.d(TAG, "onLoginPressed.getNewGCMRegID.callback")
-//                val mee = Plus.PeopleApi.getCurrentPerson(googleApiClient)
-//                PreferenceUtil.setGCM(this@IntroActivity, gcmId)
-//                restService!!.addUser(tmp_email, name, mee.id, gcmId)
-//            })
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .subscribe({ response ->
-//            Log.d(TAG, "onLoginPressed.addUser.callback")
-//            if (response.isSuccess()) {
-//                startMainActivity(tmp_email, name, response.getData().getPersonId())
-//            } else {
-//                // wtf ???
-//                showMessage(response.getError().getStatusCode() + " " + response.getError().getMessage())
-//            }
-//        }) { t ->
-//            val error = t as RetrofitError
-//            if (error.response.status == HttpURLConnection.HTTP_CONFLICT) {
-//                // user already registered --> login
-//                val response = error.body as RestService.NetworkResponse
-//                startMainActivity(tmp_email, name, response.error.persond_id)
-//            } else {
-//                // sth went really wrong so give up
-//                showMessage(t.getLocalizedMessage())
-//            }
-//        }
-
-//        val x = GCMRegUtil
-//            .getNewGCMRegID(this)
-//            .flatMap(Func1<String, RestService.NetworkResponse> {
-//
-//            })
+        GCMRegUtil
+            .getNewGCMRegID(this)
+            .flatMap { gcmId ->
+                Log.d(TAG, "onLoginPressed.getNewGCMRegID.callback")
+                val mee = Plus.PeopleApi.getCurrentPerson(googleApiClient)
+                PreferenceUtil.setGCM(this@IntroActivity, gcmId)
+                restService.addUser(tmp_email, name, mee.id, gcmId)
+            }
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe (
+                { response ->
+                    Log.d(TAG, "onLoginPressed.addUser.callback")
+                    if (response.isSuccess()) {
+                        startMainActivity(tmp_email!!, name, response.getData().getPersonId())
+                    } else {
+                        // wtf ???
+                        showMessage("$response.error.statusCode  $response.error.message")
+                    }
+                },
+                { t ->
+                    val error = t as RetrofitError
+                    if (error.response.status == HttpURLConnection.HTTP_CONFLICT) { // user already registered --> login
+                        val response = error.body as RestService.NetworkResponse
+                        startMainActivity(tmp_email!!, name, response.error.persond_id)
+                    } else {
+                        // sth went really wrong so give up
+                        showMessage(t.message ?: "unknown Error")
+                    }
+                }
+        )
 
     }
 
