@@ -6,25 +6,15 @@ import android.os.Parcelable
 /**
  * Created by Max on 03.05.2015.
  */
-open class SimpleContactData : Parcelable {
-    var person_id: Int = 0
-        protected set
-    var email: String
-        protected set
-    var name: String
-        protected set
-
-    constructor(person_id: Int, email: String, name: String) {
-        this.person_id = person_id
-        this.email = email
-        this.name = name
-    }
+open class SimpleContactData(val person_id: Int, val email: String, val name: String) : Parcelable {
 
     override fun toString(): String {
         return "SimpleContactData{person_id=$person_id, email='$email', name='$name'}"
     }
 
     /* Parcelable */
+
+    protected constructor(p: Parcel) : this(p.readInt(), p.readString(), p.readString())
 
     override fun describeContents(): Int {
         return 0
@@ -34,12 +24,6 @@ open class SimpleContactData : Parcelable {
         dest.writeInt(person_id)
         dest.writeString(email)
         dest.writeString(name)
-    }
-
-    protected constructor(p: Parcel) {
-        person_id = p.readInt()
-        email = p.readString()
-        name = p.readString()
     }
 
     companion object {
