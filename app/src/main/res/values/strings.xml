@@ -2,6 +2,8 @@
 <resources>
     <string name="app_name">Scout</string>
     <string name="app_id">352337198898</string>
+    <string name="app_server_id">352337198898-e170023979e83lieh9hhnjns83ojrqe2.apps.googleusercontent.com</string>
+
 
     <string name="welcome">Welcome to Scout</string>
     <string name="placeholder">Some Text</string>
@@ -17,6 +19,10 @@
     <string name="poked">Poked</string>
     <string name="get_started">Get Started</string>
     <string name="weather_dialog_offline_msg">May not working while offline :(</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="von">von</string>
+    <string name="bis">bis</string>
+    <string name="address_distance">%1$s (%2$dm)</string>
 
     <string name="notification_message">You received a \'poke\' from GCM</string>
     <string name="notification_update">Update</string>
@@ -163,5 +169,7 @@
     <string name="aboutLibraries_description_showIcon">true</string>
     <string name="aboutLibraries_description_showVersion">true</string>
     <string name="aboutLibraries_description_text">Scout - Freunde stalken seit 2015</string>
+
     <string name="transitionFab">transitionFab</string>
+
 </resources>

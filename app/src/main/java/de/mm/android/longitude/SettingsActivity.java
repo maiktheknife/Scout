@@ -7,7 +7,10 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.mikepenz.aboutlibraries.LibsBuilder;
+
+import org.jetbrains.annotations.Nullable;
 
 import de.mm.android.longitude.base.GameActivity;
 import de.mm.android.longitude.model.SignInFailureReason;
@@ -59,7 +62,7 @@ public class SettingsActivity extends GameActivity implements SettingsFragment.I
     /* GameActivity */
 
     @Override
-    public void onSuccess() {
+    public void onSuccess(@Nullable GoogleSignInAccount signInAccount) {
         Log.d(TAG, "onSuccess");
     }
 
@@ -72,7 +75,7 @@ public class SettingsActivity extends GameActivity implements SettingsFragment.I
 
     @Override
     public void onInstantUploadClicked() {
-//        Log.d(TAG, "onInstantUploadClicked");
+        Log.d(TAG, "onInstantUploadClicked");
 //        if (!isInetAvailable) {
 //            showMessage(R.string.error_noNetworkConnectionFound);
 //        } else {

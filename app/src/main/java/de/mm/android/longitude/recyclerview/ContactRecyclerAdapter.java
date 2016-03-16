@@ -1,6 +1,7 @@
 package de.mm.android.longitude.recyclerview;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.location.Location;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -20,6 +21,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import de.mm.android.longitude.R;
 import de.mm.android.longitude.model.ContactData;
+import de.mm.android.longitude.util.StorageUtil;
 
 /**
  * Created by Max on 21.03.2015.
@@ -51,12 +53,12 @@ public class ContactRecyclerAdapter extends RecyclerView.Adapter<ContactRecycler
         if (c.is_confirmed()) {
             holder.itemView.setEnabled(true);
             holder.latestUpdate.setText(c.getUpdatedOnFormatted());
-            holder.address.setText(c.getAddress() + " (" + Math.round(c.getDistanceTo(location)) + "m)");
+            holder.address.setText(context.getResources().getString(R.string.address_distance, c.getAddress(), Math.round(c.getDistanceTo(location))));
             holder.address.setSelected(true);
-//            Bitmap pic = StorageUtil.loadBitmap(context, c.getEmail());
-//            if (pic != null) {
-//                holder.image.setImageBitmap(pic);
-//            }
+            Bitmap pic = StorageUtil.loadBitmap(context, c.getEmail());
+            if (pic != null) {
+                holder.image.setImageBitmap(pic);
+            }
 
             menu.inflate(R.menu.f_contacts_overflow);
             menu.setOnMenuItemClickListener(item -> {

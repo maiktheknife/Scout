@@ -17,7 +17,7 @@
         android:id="@+id/f_process_floating_recent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end|right|bottom"
+        android:layout_gravity="end|bottom"
         android:layout_margin="@dimen/activity_horizontal_margin"
         android:elevation="@dimen/elevation"
         android:src="@android:drawable/ic_menu_recent_history"

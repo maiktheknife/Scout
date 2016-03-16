@@ -26,6 +26,7 @@
     <uses-permission android:name="de.mm.android.longitude.permission.C2D_MESSAGE" />
 
     <application
+        android:supportsRtl="true"
         android:name=".Global"
         android:allowBackup="true"
         android:fullBackupContent="@xml/backupscheme"

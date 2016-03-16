@@ -41,7 +41,7 @@ import de.mm.android.longitude.view.SheetFAB;
  */
 public class ContactListFragment
         extends BaseFragment
-        implements UpdateAble, SlideAble, BackwardAble,  SwipeRefreshLayout.OnRefreshListener, AppBarLayout.OnOffsetChangedListener {
+        implements UpdateAble, Slideable, BackwardAble,  SwipeRefreshLayout.OnRefreshListener, AppBarLayout.OnOffsetChangedListener {
     private static final String ARG_CONTACTS = "contacts";
     private static final String ARG_LOCATION = "location";
     private static final String TAG = ContactListFragment.class.getSimpleName();
@@ -283,7 +283,7 @@ public class ContactListFragment
         adapter.addItems(data);
     }
 
-    /** {@link SlideAble} */
+    /** {@link Slideable} */
 
     @Override
     public void onSilde(float offset) {

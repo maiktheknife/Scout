@@ -41,7 +41,7 @@ import de.mm.android.longitude.database.MyDBDelegate;
 import de.mm.android.longitude.model.ProcessEntry;
 import de.mm.android.longitude.util.PreferenceUtil;
 
-public class ProcessFragment extends Fragment implements SlideAble {
+public class ProcessFragment extends Fragment implements Slideable {
     private static final String TAG = ProcessFragment.class.getSimpleName();
 
     public static ProcessFragment newInstance() {
@@ -241,7 +241,7 @@ public class ProcessFragment extends Fragment implements SlideAble {
         googleMap.addPolyline(options);
     }
 
-    /** {@link SlideAble} */
+    /** {@link Slideable} */
 
     @Override
     public void onSilde(float offset) {

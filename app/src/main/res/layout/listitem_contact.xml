@@ -61,14 +61,14 @@
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="@color/accentColor"
                     android:textStyle="bold"
-                    tools:text="@string/placeholder" />
+                    tools:text="Max Muster" />
 
                 <TextView
                     android:id="@+id/contactrow_latestupdate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    tools:text="@string/placeholder" />
+                    tools:text="2016-01-18 17:45:01+01" />
 
                 <TextView
                     android:id="@+id/contactrow_address"
@@ -81,7 +81,7 @@
                     android:maxLines="1"
                     android:singleLine="true"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    tools:text="@string/placeholder" />
+                    tools:text="Str. XYZ 45, Potsdam" />
             </LinearLayout>
         </LinearLayout>
 

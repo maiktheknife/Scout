@@ -89,7 +89,7 @@ public interface RestService {
 //    http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api
 
     class Creator {
-        private static String TAG = Creator.class.getSimpleName();
+        private static final String TAG = Creator.class.getSimpleName();
         private static RestService INSTANCE;
 
         private Creator() {}

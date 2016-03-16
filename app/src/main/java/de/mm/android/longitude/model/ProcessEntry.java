@@ -90,7 +90,7 @@ public class ProcessEntry {
 
     @Override
     public String toString() {
-        return "ProcessEntry{" + "id=" + id + ", lat=" + lat + ", lon=" + lon +", alt=" + alt +
+        return "ProcessEntry{" + "id=" + id + ", lat=" + lat + ", lon=" + lon + ", alt=" + alt +
                 ", acc=" + acc + ", updated_on='" + updated_on + '\'' + ", address='" + address + '\'' + '}';
     }
 
@@ -101,13 +101,11 @@ public class ProcessEntry {
 
         ProcessEntry that = (ProcessEntry) o;
 
-        if (id != that.id) return false;
-        if (Double.compare(that.lat, lat) != 0) return false;
-        if (Double.compare(that.lon, lon) != 0) return false;
-        if (Double.compare(that.alt, alt) != 0) return false;
-        if (Double.compare(that.acc, acc) != 0) return false;
-        if (!updated_on.equals(that.updated_on)) return false;
-        return !(address != null ? !address.equals(that.address) : that.address != null);
+        return id == that.id && Double.compare(that.lat, lat) == 0 && Double.compare(that.lon, lon) == 0 &&
+                Double.compare(that.alt, alt) == 0 && Double.compare(that.acc, acc) == 0 &&
+                updated_on.equals(that.updated_on) && !(address != null ?
+                !address.equals(that.address) :
+                that.address != null);
 
     }
 

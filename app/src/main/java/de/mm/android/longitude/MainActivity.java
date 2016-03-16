@@ -6,9 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
@@ -32,20 +29,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.games.Games;
-import com.google.android.gms.plus.Plus;
-import com.google.android.gms.plus.model.people.Person;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import de.mm.android.longitude.base.GameActivity;
 import de.mm.android.longitude.database.MyDBDelegate;
 import de.mm.android.longitude.fragment.BackwardAble;
@@ -53,7 +46,7 @@ import de.mm.android.longitude.fragment.ChangeLogDialogFragment;
 import de.mm.android.longitude.fragment.ContactListFragment;
 import de.mm.android.longitude.fragment.GMapFragment;
 import de.mm.android.longitude.fragment.ProcessFragment;
-import de.mm.android.longitude.fragment.SlideAble;
+import de.mm.android.longitude.fragment.Slideable;
 import de.mm.android.longitude.fragment.UpdateAble;
 import de.mm.android.longitude.intro.IntroActivity;
 import de.mm.android.longitude.location.UpdateLocationService;
@@ -76,10 +69,11 @@ public class MainActivity extends GameActivity implements GMapFragment.IMapFragm
     private static final String ARG_LOCATION = "location";
     private static final String TAG = MainActivity.class.getSimpleName();
 
+    @Bind(R.id.ac_main_nav_view) NavigationView navigationView;
+    @Bind(R.id.ac_main_drawer_layout) DrawerLayout drawerLayout;
+
     private LocalReceiver localReceiver;
     private RestService webService;
-    private DrawerLayout drawerLayout;
-    private NavigationView navigationView;
     private Action1<Throwable> errorAction = t -> {
         RetrofitError error = (RetrofitError) t;
         showMessage(error.getMessage());
@@ -125,6 +119,7 @@ public class MainActivity extends GameActivity implements GMapFragment.IMapFragm
 		super.onCreate(savedInstanceState);
 		Log.d(TAG, "onCreate");
 		setContentView(R.layout.ac_main);
+        ButterKnife.bind(this);
 
 		PreferenceManager.setDefaultValues(this, PREFS_NAME_SETTINGS, MODE_PRIVATE, R.xml.prefs_settings, false);
 
@@ -134,27 +129,32 @@ public class MainActivity extends GameActivity implements GMapFragment.IMapFragm
             return;
         }
 
-        drawerLayout = (DrawerLayout) findViewById(R.id.ac_main_drawer_layout);
-        drawerLayout.setDrawerListener(new DrawerLayout.DrawerListener() {
+        drawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
                 publishSlide(slideOffset);
             }
+
             @Override
-            public void onDrawerOpened(View drawerView) {}
+            public void onDrawerOpened(View drawerView) {
+            }
+
             @Override
-            public void onDrawerClosed(View drawerView) {}
+            public void onDrawerClosed(View drawerView) {
+            }
+
             @Override
-            public void onDrawerStateChanged(int newState) {}
+            public void onDrawerStateChanged(int newState) {
+            }
+
             private void publishSlide(float offset) {
                 Fragment f = getSupportFragmentManager().findFragmentById(R.id.ac_container);
-                if (f != null && f instanceof SlideAble) {
-                    ((SlideAble) f).onSilde(offset);
+                if (f != null && f instanceof Slideable) {
+                    ((Slideable) f).onSilde(offset);
                 }
             }
         });
 
-        navigationView = (NavigationView) findViewById(R.id.ac_main_nav_view);
         navigationView.getMenu().getItem(0).setChecked(true);
         navigationView.setNavigationItemSelectedListener(menuItem -> {
             menuItem.setChecked(true);
@@ -182,7 +182,6 @@ public class MainActivity extends GameActivity implements GMapFragment.IMapFragm
             pokeFriends();
             showFragment(R.id.drawer_map);
         }
-        loadProfileInformation();
 
         showChangeLog(true);
     }
@@ -564,58 +563,48 @@ public class MainActivity extends GameActivity implements GMapFragment.IMapFragm
         navigationView.getMenu().setGroupVisible(2291, true);
     }
 
-    private boolean isLoadingDone = false;
+    private void loadProfileInformation(GoogleSignInAccount signInAccount) {
+        Log.d(TAG, "loadProfileInformation: " + signInAccount);
 
-    private void loadProfileInformation() {
-        Log.d(TAG, "loadProfileInformation " + isLoadingDone);
-        if (isLoadingDone) {
-            return;
-        }
-        if (!getGoogleApiClient().isConnected()) {
-            return;
-        }
-        Person mee = Plus.PeopleApi.getCurrentPerson(getGoogleApiClient());
+//        TextView drawerNameText = (TextView) findViewById(R.id.f_drawer_profile_name);
+//        TextView drawerMailText = (TextView) findViewById(R.id.f_drawer_profile_mail);
+//
+//        drawerNameText.setText(signInAccount.getDisplayName());
+//        drawerMailText.setText(signInAccount.getEmail());
 
-        TextView name = (TextView) findViewById(R.id.f_drawer_profile_name);
-        name.setText(PreferenceUtil.getAccountName(this));
-        TextView email = (TextView) findViewById(R.id.f_drawer_profile_mail);
-        email.setText(Plus.AccountApi.getAccountName(getGoogleApiClient()));
+//        if (signInAccount.getPhotoUrl() != null) { // g+ image set
+//            Log.d(TAG, "loadProfileInformation.loadPhoto");
+//            Picasso
+//                .with(this)
+//                .load(signInAccount.getPhotoUrl())
+//                .placeholder(android.R.mipmap.sym_def_app_icon)
+//                .into((ImageView) findViewById(R.id.f_drawer_profile_image));
+//        }
 
-        if (mee.getImage() != null && mee.getImage().hasUrl()) { // g+ image set
-            Log.d(TAG, "loadProfileInformation.loadProfil");
-            String photoUrl = mee.getImage().getUrl();
-            photoUrl = photoUrl.substring(0, photoUrl.length() - 2) + "100";
-            Picasso
-                .with(this)
-                .load(Uri.parse(photoUrl))
-                .placeholder(android.R.mipmap.sym_def_app_icon)
-                .into((ImageView) findViewById(R.id.f_drawer_profile_image));
-        }
-
-        if (mee.getCover() != null && mee.getCover().getCoverPhoto() != null && mee.getCover().getCoverPhoto().hasUrl()) { // g+ cover image set
-            Log.d(TAG, "loadProfileInformation.loadCover");
-            Picasso
-                .with(this)
-                .load(Uri.parse(mee.getCover().getCoverPhoto().getUrl()))
-                .placeholder(R.mipmap.background_poly)
-                .into(new Target() {
-                    @Override
-                    public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                        Log.d(TAG, "loadProfileInformation.Picasso.onBitmapLoaded");
-                        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.f_drawer_relativelayout);
-                        relativeLayout.setBackground(new BitmapDrawable(relativeLayout.getResources(), bitmap));
-                    }
-
-                    @Override
-                    public void onBitmapFailed(Drawable errorDrawable) {
-                    }
-
-                    @Override
-                    public void onPrepareLoad(Drawable placeHolderDrawable) {
-                    }
-                });
-        }
-        isLoadingDone = true;
+        // TODO load cover, no 'new' way atm.
+//        if (mee.getCover() != null && mee.getCover().getCoverPhoto() != null && mee.getCover().getCoverPhoto().hasUrl()) { // g+ cover image set
+//            Log.d(TAG, "loadProfileInformation.loadCover");
+//            Picasso
+//                .with(this)
+//                .load(Uri.parse(mee.getCover().getCoverPhoto().getUrl()))
+//                .placeholder(R.mipmap.background_poly)
+//                .into(new Target() {
+//                    @Override
+//                    public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+//                        Log.d(TAG, "loadProfileInformation.Picasso.onBitmapLoaded");
+//                        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.f_drawer_relativelayout);
+//                        relativeLayout.setBackground(new BitmapDrawable(relativeLayout.getResources(), bitmap));
+//                    }
+//
+//                    @Override
+//                    public void onBitmapFailed(Drawable errorDrawable) {
+//                    }
+//
+//                    @Override
+//                    public void onPrepareLoad(Drawable placeHolderDrawable) {
+//                    }
+//                });
+//        }
     }
 
     private void updateContacts(final List<ContactData> data){
@@ -877,14 +866,14 @@ public class MainActivity extends GameActivity implements GMapFragment.IMapFragm
     /* GameActivity */
 
     @Override
-    protected void onSuccess() {
+    protected void onSuccess(@NonNull GoogleSignInAccount signInAccount) {
         Log.d(TAG, "onSuccess");
-        loadProfileInformation();
-        GameUtil.incrementAppUsage(this, getGoogleApiClient());
+        loadProfileInformation(signInAccount);
+//        GameUtil.incrementAppUsage(this, getGoogleApiClient()); // TODO
     }
 
     @Override
-    protected void onFailure(@NonNull final SignInFailureReason reason) {
+    protected void onFailure(@NonNull SignInFailureReason reason) {
         Log.d(TAG, "onFailure: " + reason);
         showMessage(reason.toString());
     }
