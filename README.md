@@ -1,4 +1,7 @@
 # Scout
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/32e8705d0639402287d5e568b140e63f)](https://www.codacy.com/app/maiktheknife/Scout?utm_source=github.com&utm_medium=referral&utm_content=maiktheknife/Scout&utm_campaign=badger)
+
 Scout is an Android App which allows you to *stalk* your Friends
 
 ###Play Store
